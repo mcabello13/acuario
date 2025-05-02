@@ -1,0 +1,23 @@
+t <form>
+t <text>
+t <id>luz</id>
+c m 1 <value>%f</value>
+t </text>
+t <text>
+t <id>ph</id>
+c m 2 <value>%f</value>
+t </text>
+t <text>
+t <id>temperatura</id>
+c m 3 <value>%f</value>
+t </text>
+t <text>
+t <id>timeutc</id>
+c m 4 <value>%s</value>
+t </text>
+t <text>
+t <id>dateutc</id>
+c m 5 <value>%s</value>
+t </text>
+t </form>
+.

@@ -1,0 +1,20 @@
+t <form>
+t <text>
+t <id>tension</id>
+c n 1 <value>%f</value>
+t </text>
+t <text>
+t <id>corriente</id>
+c n 2 <value>%f</value>
+t </text>
+t <text>
+t <id>timeutc</id>
+c n 3 <value>%s</value>
+t </text>
+t <text>
+t <id>dateutc</id>
+c n 4 <value>%s</value>
+t </text>
+t </form>
+.
+

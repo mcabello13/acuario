@@ -1,0 +1,7 @@
+t <form>
+t <text>
+t <id>luz</id>
+c m 1<value>%.2f</value>
+t </text>
+t </form>
+.

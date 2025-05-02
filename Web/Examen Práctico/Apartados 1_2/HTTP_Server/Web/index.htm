@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acuario Inteligente</title>
+  <link href="style.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .topnav a {
+      margin: 0 10px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="topnav">
+      <a href="/index.htm">Home</a>
+      <a href="/buttons.cgi">Estadisticas</a>
+      <a href="/ad.cgi">Limpieza del Acuario</a>
+      <a href="/consumo.cgi">Consumo del Acuario</a>
+    </div>
+  </header>
+
+  <br><br><br><br><br><br>
+
+  <h2>ISE 2025</h2>
+  <h2><b>ACUARIO INTELIGENTE</b></h2>
+
+  <p id="fecha">Fecha: </p>
+  <p id="hora">Hora: </p>
+
+  <!-- Script de Fecha y Hora -->
+  <script>
+    function actualizarFechaHora() {
+      const ahora = new Date();
+
+      const opcionesFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+      const opcionesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
+      const fechaFormateada = ahora.toLocaleDateString('es-ES', opcionesFecha);
+      const horaFormateada = ahora.toLocaleTimeString('es-ES', opcionesHora);
+
+      document.getElementById('fecha').textContent = 'Fecha: ' + fechaFormateada;
+      document.getElementById('hora').textContent = 'Hora: ' + horaFormateada;
+    }
+
+    actualizarFechaHora();
+    setInterval(actualizarFechaHora, 1000);
+  </script>
+
+</body>
+</html>

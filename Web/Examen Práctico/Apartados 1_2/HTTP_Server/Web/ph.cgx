@@ -1,0 +1,8 @@
+t <form>
+t <text>
+t <id>ph</id>
+c p 1<value>%.2f</value>
+t </text>
+t </form>
+.
+

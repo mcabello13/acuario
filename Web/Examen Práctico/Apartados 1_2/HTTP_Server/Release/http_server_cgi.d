@@ -1,0 +1,11 @@
+.\release\http_server_cgi.o: HTTP_Server_CGI.c
+.\release\http_server_cgi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\release\http_server_cgi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\release\http_server_cgi.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include\cmsis_os2.h
+.\release\http_server_cgi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\release\http_server_cgi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\release\http_server_cgi.o: C:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include\rl_net.h
+.\release\http_server_cgi.o: C:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include\rl_net_ds.h
+.\release\http_server_cgi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\release\http_server_cgi.o: .\RTE\_Release\RTE_Components.h
+.\release\http_server_cgi.o: leds.h
