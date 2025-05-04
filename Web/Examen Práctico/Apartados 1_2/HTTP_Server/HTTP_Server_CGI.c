@@ -6,7 +6,7 @@
  * Purpose: HTTP Server CGI Module
  * Rev.:    V6.0.0
  *----------------------------------------------------------------------------*/
-
+ 
 #include <stdio.h>
 #include <string.h>
 #include "cmsis_os2.h"                  // ::CMSIS:RTOS2
@@ -14,7 +14,8 @@
 #include "leds.h"
 #include "time.h"
 #include "Thread.h"
-
+#include "main.h"
+#include "RTE_Components.h"             // Component selection
 //#include "Board_LED.h"                  // ::Board Support:LED
 
 #if      defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
@@ -29,10 +30,9 @@
 extern bool LEDrun;
 extern char lcd_text[2][20+1];
 extern osThreadId_t TID_Display;
-
-extern bool o; ///////////VARIABLE PARA RESETEAR EL RELOJ.
-extern bool u;
-extern bool bar; 
+extern bool limpiezaActiva;
+osTimerId_t tim_id_s;
+static uint32_t exec;               
 
 // Local variables.
 static uint8_t P2;
@@ -52,6 +52,27 @@ typedef struct {
   uint8_t unused[3];
 } MY_BUF;
 #define MYBUF(p)        ((MY_BUF *)p)
+
+//Timer "One Shot" para el entrar en Modo Bajo Consumo:
+//---------------------------------------------------------------------------------------
+static void Timer_Callback (void const *arg) 
+{
+
+	if(limpiezaActiva == 1)
+	{
+		SleepMode();
+		limpiezaActiva = 0;
+	}
+}
+
+int Init_Timer (void) 
+{
+  // Create one-shoot timer
+  exec = 1U;
+  tim_id_s = osTimerNew((osTimerFunc_t)&Timer_Callback, osTimerPeriodic, &exec, NULL);
+  return NULL;
+}
+//---------------------------------------------------------------------------------------
 
 // Process query string received by GET request.
 void netCGI_ProcessQuery (const char *qstr) {
@@ -141,18 +162,21 @@ void netCGI_ProcessData (uint8_t code, const char *data, uint32_t len) {
       else if (strcmp (var, "led1=on") == 0) {
         P2 |= 0x02;
       }
-      else if (strcmp (var, "led2=on") == 0) { //SE HAN ELIMINADO LOS LEDS RESTANTES PORQUE SOLO TENEMOS 3.
+      else if (strcmp (var, "led2=on") == 0) { //SE HAN ELIMINADO LOS LED RESTANTES PORQUE SOLO TENEMOS 3.
         P2 |= 0x04;				
       }
-			else if (strcmp (var, "activarLimpieza=on") == 0) 
+			else if (strcmp (var, "activarLimpieza=on") == 0) //--------------__MODO LIMPIEZA__--------------
 			{
-				if(o == 0)
+				if(limpiezaActiva == 0)
 				{
-					o = 1;
+					limpiezaActiva = 1;
+					
+					Init_Timer();
+					osTimerStart(tim_id_s, 6000);										
 				}
 				else
 				{
-					o = 0;
+					limpiezaActiva = 0;
 				}        
       }
       else if (strcmp (var, "ctrl=Browser") == 0) {

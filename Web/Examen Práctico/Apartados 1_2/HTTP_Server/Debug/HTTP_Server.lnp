@@ -11,6 +11,7 @@
 ".\debug\thread_lcd.o"
 ".\debug\stm32f4xx_it.o"
 ".\debug\bluetooth.o"
+".\debug\alimentacion.o"
 ".\debug\led_32f469idiscovery.o"
 ".\debug\irq_armv7m.o"
 ".\debug\rtx_delay.o"

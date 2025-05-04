@@ -13,6 +13,7 @@
 #include "Thread.h"
 #include "sntp.h"
 #include "bluetooth.h"
+#include "alimentacion.h"
 
 // Main stack size must be multiple of 8 Bytes
 #define APP_MAIN_STK_SZ (1024U)
@@ -31,10 +32,12 @@ extern osThreadId_t TID_RTC;
 static void BlinkLed (void *arg);
 static void Display  (void *arg);
 
+
 //Identificadores de hilos:
 osThreadId_t TID_Display;
 osThreadId_t TID_Led;
 osThreadId_t TID_RTC;
+osThreadId_t tid_ThreadModoBajoConsumo;
 osThreadId_t tid_Threadrandom; 
 
 static GPIO_InitTypeDef GPIO_InitStruct;
@@ -43,8 +46,7 @@ static GPIO_InitTypeDef GPIO_InitStruct;
 float datosRandom = 0;
 float datosRandomTurbidez = 0;
 bool LEDrun;
-bool o;
-bool u = 1;
+bool limpiezaActiva = 0;
 bool bar = 0;
 char lcd_text[2][20+1];
 int i;
@@ -156,7 +158,7 @@ static __NO_RETURN void BlinkLed (void *arg)
   }
 }
 
-//////////////FUNCION QUE INICIALIZA LOS LED NORMALES Y EL RGB:
+//Función que inicializa los LED de la placa y los RGB:
 void LED_Init(void)
 {
 	__HAL_RCC_GPIOB_CLK_ENABLE();
@@ -201,9 +203,21 @@ void LED_Init(void)
 
 
 
-/**************************************************
-HILO PARA SIMULAR VALORES RANDOM DE LUZ Y PH
-**************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+/***************************************************************************
+HILO PARA SIMULAR VALORES RANDOM DE LUZ Y PH HASTA NO TENER EL BLUETOOTH
+****************************************************************************/
 int Init_Thread_random (void) 
 {
   tid_Threadrandom = osThreadNew(Thread_random, NULL, NULL);
@@ -245,6 +259,15 @@ void Thread_random (void *argument)
 
 
 
+
+
+
+
+
+
+
+
+
 /*----------------------------------------------------------------------------
   Main Thread 'main': Run Network
  *---------------------------------------------------------------------------*/
@@ -260,7 +283,7 @@ __NO_RETURN void app_main (void *arg)
 	
 	
 	//Inicializacion de los LED normales mas el RGB para ejemplo de ESTUDIO:
-	//LED_Init();
+	LED_Init();
 	//LED_Initialize_stm();
 	netInitialize(); //Se inicializan los LED, el ADC y la red.
 	//init(); //Inicializacion del LCD.
@@ -270,6 +293,8 @@ __NO_RETURN void app_main (void *arg)
 	
 	Init_Thread_lcd();
 	Init_Thread_sntp();	
+	Init_Thread_alim_pez();
+	init_Digital_PIN_Out();
 	
 	configurar_esclavo_bluetooth();
 	Init_Thread_slave();

@@ -44,6 +44,7 @@
 #include "Thread.h"
 #include "luz.h"
 #include "turbidez.h"
+#include "ph.h"
 
 
 #ifdef RTE_CMSIS_RTOS2_RTX5
@@ -131,6 +132,7 @@ int main(void)
 	initI2C();
 	ADC1_pins_F429ZI_config();
 	Init_Thread_luz();
+	Init_Thread_ph();
 	Init_Thread_turbidez();
 	creacion_hilos();
 	initUart();

@@ -50,3 +50,4 @@
 .\debug\principal.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\debug\principal.o: turbidez.h
 .\debug\principal.o: luz.h
+.\debug\principal.o: ph.h

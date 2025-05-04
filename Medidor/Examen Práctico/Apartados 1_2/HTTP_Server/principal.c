@@ -10,6 +10,7 @@
 #include "Thread.h"
 #include "turbidez.h"
 #include "luz.h"
+#include "ph.h"
 
 // Main stack size must be multiple of 8 Bytes
 #define APP_MAIN_STK_SZ (1024U)
@@ -22,11 +23,13 @@ const osThreadAttr_t app_main_attr = {
 //Identificadores de Hilos:
 osThreadId_t TID_turbidez;
 osThreadId_t TID_luz;
+osThreadId_t TID_ph;
 
 //extern osThreadId_t TID_Display;
 //extern osThreadId_t TID_Led;
 extern osThreadId_t TID_turbidez;
 extern osThreadId_t TID_luz;
+extern osThreadId_t TID_ph;
 
 //Declaraciones de los Hilos:
 //static void BlinkLed (void *arg);
@@ -46,6 +49,7 @@ float value = 0;
 __NO_RETURN void app_main (void *arg);
 void Thread_turbidez(void *argument);
 void Thread_luz(void *argument);
+void Thread_ph(void *argument);
 void Thread_master(void *argument);
 void creacion_hilos(void);
 
@@ -79,6 +83,18 @@ int Init_Thread_luz (void)
   return(0);
 }
 
+int Init_Thread_ph (void) 
+{
+  TID_ph = osThreadNew(Thread_ph, NULL, NULL);
+	
+  if (TID_ph == NULL) 
+	{
+    return(-1);
+  }
+ 
+  return(0);
+}
+
 
 /********************************************************************
  *                        HILOS Y FUNCIONES                         *
@@ -105,11 +121,22 @@ void Thread_luz (void *argument)
 	}
 }
 
+//Hilo que gestiona el Sensor de pH:
+void Thread_ph (void *argument) 
+{ 		
+	while(1)
+	{	
+		pH_Sensor_Read();
+		osDelay(2000);
+	}
+}
+
 //Funcion para crear los hilos utilizados:
 void creacion_hilos(void)
 {
 	TID_turbidez = osThreadNew (Thread_turbidez,  NULL, NULL);
 	TID_luz = osThreadNew (Thread_luz,  NULL, NULL);
+	TID_ph = osThreadNew (Thread_ph,  NULL, NULL);
 	//TID_Led     = osThreadNew (BlinkLed, NULL, NULL);
   //TID_Display = osThreadNew (Display,  NULL, NULL);
 }

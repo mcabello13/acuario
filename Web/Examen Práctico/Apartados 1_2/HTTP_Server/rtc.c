@@ -5,9 +5,10 @@
 #include "sntp.h"
 #include "Thread.h"
 #include "rl_net.h"
-
+#include "stm32f4xx.h"
 
 //Variables:
+GPIO_InitTypeDef GPIO_InitStruct;
 RTC_HandleTypeDef RtcHandle; //RTC handler declaration.
 RTC_DateTypeDef sdatestructure;
 RTC_TimeTypeDef stimestructure;
@@ -17,7 +18,7 @@ char cadenaReloj [20+1];
 char cadenaFecha [20+1];
 int c=0;
 int dia, mes, ano, horas, minutos, segundos;
-int modoSleep = 0;
+TIM_HandleTypeDef TimHandle;
 
 
 //Funcion que inicializa el RTC:
@@ -140,13 +141,6 @@ void RTC_getTime_Date(void)
 	horas = stimestructureget.Hours;
 	minutos = stimestructureget.Minutes;
 	segundos = stimestructureget.Seconds;
-	
-	if(modoSleep == 1) //En este "if" se realiza la comprobacion de si el sistema viene del Modo Sleep...
-	{
-		enciendeLCD_consumo(); //...si es asi, se resetea la variable "modoSleep" y se apaga el LED rojo.
-		modoSleep = 0;		
-		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14); 
-	}
   
 	sprintf(cadenaReloj,"%.2d:%.2d:%.2d", horas+1, minutos, segundos);	
 	EscribeTiempo(cadenaReloj);
@@ -200,29 +194,39 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
  * el reloj del sistema.																															 *
  ***************************************************************************************/
 
+void TIM6_delay(void)
+{		
+    // 1. Habilitar reloj de TIM 6
+    __HAL_RCC_TIM6_CLK_ENABLE();
+
+    // 2. Configurar TIM 6 para contar milisegundos
+    TimHandle.Instance = TIM6;
+    TimHandle.Init.Prescaler = (SystemCoreClock / 1000) - 1; //1 ms por cuenta
+    TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+    TimHandle.Init.Period = 0xFFFF; //Máximo valor (65535 ms ~ 65 s)
+    TimHandle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+    HAL_TIM_Base_Init(&TimHandle);
+    HAL_TIM_Base_Start(&TimHandle);
+
+    // 3. Hacer el retardo de 5000 ms
+    TIM6->CNT = 0;
+    while (TIM6->CNT < 5000);
+}
+
 //Funcion para el Modo Sleep:
 void SleepMode(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET); //LED Rojo ON.
 	
-	//Configuracion del LED Rojo:
-	__HAL_RCC_GPIOB_CLK_ENABLE();
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_PULLUP;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	GPIO_InitStruct.Pin = GPIO_PIN_14;
-	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);	
-	
-	modoSleep = 1; //Se activa el Modo Sleep...
-	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14); //...se enciende el LED Rojo...
-	apagarLCD_consumo(); //...y se apaga el LCD.
-	
-  __HAL_RCC_GPIOC_CLK_ENABLE(); //Se configura el Pulsador Azul...
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   HAL_SuspendTick(); //...y una vez configurado, se suspende el reloj del sistema.
-  __HAL_RCC_PWR_CLK_ENABLE();
   HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
+	
+	TIM6_delay(); //Timer para simular el retardo de la Limpieza del Acuario.
+	
+	HAL_ResumeTick(); //Se levanta el sistema.
+	
+	HAL_TIM_Base_Stop(&TimHandle); //Se para el Timer 6.
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET); //LED Rojo OFF.
 }

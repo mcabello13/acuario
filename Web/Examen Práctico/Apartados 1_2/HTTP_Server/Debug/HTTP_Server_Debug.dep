@@ -1,6 +1,6 @@
 Dependencies for Project 'HTTP_Server', Target 'Debug': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (.\main.c)(0x67FBBE55)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\main.o --omf_browse .\debug\main.crf --depend .\debug\main.d)
+F (.\main.c)(0x681636EB)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\main.o --omf_browse .\debug\main.crf --depend .\debug\main.d)
 I (main.h)(0x5D36EA88)
 I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x5F6B34E6)
 I (.\RTE\Device\STM32F429ZITx\stm32f4xx_hal_conf.h)(0x5F6D8F2C)
@@ -48,7 +48,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602577DC)
 I (rtc.h)(0x6651F1D7)
 I (C:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include\rl_net.h)(0x5E959FC0)
 I (C:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include\rl_net_ds.h)(0x60A558E2)
-F (.\HTTP_Server.c)(0x68137B3B)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\http_server.o --omf_browse .\debug\http_server.crf --depend .\debug\http_server.d)
+F (.\HTTP_Server.c)(0x68177AC2)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\http_server.o --omf_browse .\debug\http_server.crf --depend .\debug\http_server.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x602577D4)
 I (main.h)(0x5D36EA88)
 I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x5F6B34E6)
@@ -102,7 +102,8 @@ I (sntp.h)(0x64170230)
 I (C:\Keil_v5\ARM\ARMCC\include\time.h)(0x602577D8)
 I (bluetooth.h)(0x680E1200)
 I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_USART.h)(0x60D44B52)
-F (.\HTTP_Server_CGI.c)(0x6814E01E)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\http_server_cgi.o --omf_browse .\debug\http_server_cgi.crf --depend .\debug\http_server_cgi.d)
+I (alimentacion.h)(0x68177A08)
+F (.\HTTP_Server_CGI.c)(0x6817565A)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\http_server_cgi.o --omf_browse .\debug\http_server_cgi.crf --depend .\debug\http_server_cgi.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x602577D4)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x602577DE)
 I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include\cmsis_os2.h)(0x60D44B52)
@@ -117,7 +118,41 @@ I (C:\Keil_v5\ARM\ARMCC\include\time.h)(0x602577D8)
 I (Thread.h)(0x680E0AAF)
 I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_I2C.h)(0x60D44B52)
 I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_Common.h)(0x60D44B52)
-F (Web\Web.c)(0x6814E66F)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\web.o --omf_browse .\debug\web.crf --depend .\debug\web.d)
+I (main.h)(0x5D36EA88)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x5F6B34E6)
+I (.\RTE\Device\STM32F429ZITx\stm32f4xx_hal_conf.h)(0x5F6D8F2C)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h)(0x5D0CD2A4)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x5F6B3446)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f429xx.h)(0x5F6B3446)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm4.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_version.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_compiler.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armcc.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\mpu_armv7.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x5F6B3446)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_sram.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_fmc.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rtc.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rtc_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h)(0x5F6B34E6)
+F (Web\Web.c)(0x68177BB0)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\web.o --omf_browse .\debug\web.crf --depend .\debug\web.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x602577DE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602577DE)
 F (.\leds.h)(0x63EF698B)()
@@ -254,7 +289,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x602577D4)
 I (main.h)(0x5D36EA88)
 I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include\cmsis_os2.h)(0x60D44B52)
 F (.\sntp.h)(0x64170230)()
-F (.\rtc.c)(0x680E13A6)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\rtc.o --omf_browse .\debug\rtc.crf --depend .\debug\rtc.d)
+F (.\rtc.c)(0x68177AF5)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\rtc.o --omf_browse .\debug\rtc.crf --depend .\debug\rtc.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x602577D4)
 I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x5F6B34E6)
 I (.\RTE\Device\STM32F429ZITx\stm32f4xx_hal_conf.h)(0x5F6D8F2C)
@@ -400,7 +435,7 @@ I (Thread.h)(0x680E0AAF)
 I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_I2C.h)(0x60D44B52)
 I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_Common.h)(0x60D44B52)
 F (.\Thread.h)(0x680E0AAF)()
-F (.\stm32f4xx_it.c)(0x641481C0)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\stm32f4xx_it.o --omf_browse .\debug\stm32f4xx_it.crf --depend .\debug\stm32f4xx_it.d)
+F (.\stm32f4xx_it.c)(0x68177944)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\stm32f4xx_it.o --omf_browse .\debug\stm32f4xx_it.crf --depend .\debug\stm32f4xx_it.d)
 I (main.h)(0x5D36EA88)
 I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x5F6B34E6)
 I (.\RTE\Device\STM32F429ZITx\stm32f4xx_hal_conf.h)(0x5F6D8F2C)
@@ -489,6 +524,46 @@ I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL
 I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h)(0x5F6B34E6)
 I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_USART.h)(0x60D44B52)
 F (.\bluetooth.h)(0x680E1200)()
+F (.\alimentacion.c)(0x68177BA8)(--c99 -c --cpu Cortex-M4 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\RTE\CMSIS-I.\RTE\Compiler-I.\RTE\Device\STM32F429ZITx-I.\RTE\Network-I.\RTE\_Debug-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include-IC:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Include-IC:\Users\Castellana\Documents\Keil\ARM_Compiler\1.6.3\Include-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Board-IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F429xx -D_RTE_ -DHSE_VALUE="8000000"-o .\debug\alimentacion.o --omf_browse .\debug\alimentacion.crf --depend .\debug\alimentacion.d)
+I (alimentacion.h)(0x68177A08)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include\cmsis_os2.h)(0x60D44B52)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602577DE)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x602577DE)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x5F6B34E6)
+I (.\RTE\Device\STM32F429ZITx\stm32f4xx_hal_conf.h)(0x5F6D8F2C)
+I (.\RTE\_Debug\RTE_Components.h)(0x680CF6B3)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h)(0x5D0CD2A4)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x5F6B3446)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f429xx.h)(0x5F6B3446)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm4.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_version.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_compiler.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armcc.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Core\Include\mpu_armv7.h)(0x60D44B52)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x5F6B3446)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_sram.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_fmc.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rtc.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rtc_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x5F6B34E6)
+I (C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h)(0x5F6B34E6)
+F (.\alimentacion.h)(0x68177A08)()
 F (.\Web\index.htm)(0x6814BEDF)()
 F (.\Web\pg_header.inc)(0x56617F7E)()
 F (.\Web\pg_footer.inc)(0x56617F7E)()

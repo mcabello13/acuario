@@ -463,6 +463,16 @@
               <FileType>1</FileType>
               <FilePath>.\principal.c</FilePath>
             </File>
+            <File>
+              <FileName>ph.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ph.c</FilePath>
+            </File>
+            <File>
+              <FileName>ph.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ph.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

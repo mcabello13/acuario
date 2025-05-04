@@ -478,6 +478,16 @@
               <FileType>5</FileType>
               <FilePath>.\bluetooth.h</FilePath>
             </File>
+            <File>
+              <FileName>alimentacion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\alimentacion.c</FilePath>
+            </File>
+            <File>
+              <FileName>alimentacion.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\alimentacion.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

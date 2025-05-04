@@ -53,6 +53,9 @@
 extern RTC_DateTypeDef sdatestructure;
 extern RTC_TimeTypeDef stimestructure;
 extern RTC_HandleTypeDef RtcHandle;
+extern osThreadId_t th_alim_pez;
+TIM_HandleTypeDef tm7;
+int timer = 0;
 
 
 /** @addtogroup STM32F4xx_HAL_Examples
@@ -197,21 +200,9 @@ void SysTick_Handler(void)
 
 //Funcion de rutina de atencion a la interrupcion del Pulsador Azul:
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{	
-	//DE LA PRACTICA 2 ---> Tras una pulsacion, se resetea fecha y hora al valor que se desee.
-  /*sdatestructure.Year = 0+48;
-  sdatestructure.Month = RTC_MONTH_JANUARY;
-  sdatestructure.Date = 01;
-
-	HAL_RTC_SetDate(&RtcHandle, &sdatestructure, RTC_FORMAT_BIN);
-	
-  stimestructure.Hours = 0x00;
-  stimestructure.Minutes = 00;
-  stimestructure.Seconds = 00;
-	
-	HAL_RTC_SetTime(&RtcHandle,&stimestructure,RTC_FORMAT_BIN);*/
-	
-	HAL_ResumeTick(); //Despertamos al reloj del sistema para que salga del Modo Sleep cada vez que se pulse.
+{		
+	osDelay(700); //----------------------------------__ALIMENTACION DE LOS PECES__----------------------------------
+	osThreadFlagsSet(th_alim_pez, 0x01);
 }
 
 void EXTI15_10_IRQHandler(void)

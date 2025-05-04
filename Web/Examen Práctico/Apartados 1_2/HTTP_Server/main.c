@@ -124,7 +124,6 @@ int main(void)
 	
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 	
-	
   /* Create application main thread */
   osThreadNew(app_main, NULL, &app_main_attr);
 
