@@ -40,7 +40,6 @@
 .\debug\rtc.o: C:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include\rl_net.h
 .\debug\rtc.o: C:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include\rl_net_ds.h
 .\debug\rtc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-.\debug\rtc.o: lcd.h
 .\debug\rtc.o: sntp.h
 .\debug\rtc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
 .\debug\rtc.o: main.h

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "stm32f4xx_hal.h"
 #include "rtc.h"
-#include "lcd.h"
 #include "sntp.h"
 #include "Thread.h"
 #include "rl_net.h"
@@ -143,10 +142,8 @@ void RTC_getTime_Date(void)
 	segundos = stimestructureget.Seconds;
   
 	sprintf(cadenaReloj,"%.2d:%.2d:%.2d", horas+1, minutos, segundos);	
-	EscribeTiempo(cadenaReloj);
 	osDelay(100);
 	sprintf(cadenaFecha,"%.2d/%.2d/%.2d", dia, mes, ano-48);
-	EscribeFecha(cadenaFecha);
 }
 
 //Funcion que sobrescribe la misma funcion de la capa HAL para que el RTC utilice el reloj LSE en vez del HSE:

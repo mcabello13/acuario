@@ -39,7 +39,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "lcd.h"
 #include "stm32f4xx_hal.h"
 #include "Thread.h"
 #include "luz.h"
@@ -127,8 +126,6 @@ int main(void)
 	
 	//LED_Init();
 	//LED_Initialize_stm();
-	init(); //Inicializacion del LCD.
-	LCD_reset();
 	initI2C();
 	ADC1_pins_F429ZI_config();
 	Init_Thread_luz();

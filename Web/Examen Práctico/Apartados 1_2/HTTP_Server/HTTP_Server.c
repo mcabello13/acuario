@@ -7,13 +7,13 @@
 #include "rl_net.h"                   
 #include "stm32f4xx_hal.h"              
 #include "leds.h"
-#include "lcd.h"
 #include "adc.h"
 #include "rtc.h"
 #include "Thread.h"
 #include "sntp.h"
 #include "bluetooth.h"
 #include "alimentacion.h"
+#include "bomba.h"
 
 // Main stack size must be multiple of 8 Bytes
 #define APP_MAIN_STK_SZ (1024U)
@@ -23,30 +23,33 @@ const osThreadAttr_t app_main_attr = {
   .stack_size = sizeof(app_main_stk)
 };
 
-//Hilos:
-extern osThreadId_t TID_Display;
-extern osThreadId_t TID_Led;
-extern osThreadId_t TID_RTC; 
-
 //Declaraciones de los hilos:
 static void BlinkLed (void *arg);
 static void Display  (void *arg);
 
-
-//Identificadores de hilos:
+//Identificadores de los Hilos:
+//extern osThreadId_t TID_Display;
+extern osThreadId_t TID_Led;
+extern osThreadId_t TID_RTC; 
 osThreadId_t TID_Display;
 osThreadId_t TID_Led;
 osThreadId_t TID_RTC;
 osThreadId_t tid_ThreadModoBajoConsumo;
 osThreadId_t tid_Threadrandom; 
+osThreadId_t th_alim_pez;
+osThreadId_t tid_Thread_Bomba;
+
 
 static GPIO_InitTypeDef GPIO_InitStruct;
+
 
 //Variables:
 float datosRandom = 0;
 float datosRandomTurbidez = 0;
 bool LEDrun;
 bool limpiezaActiva = 0;
+bool alimentacion = 0;
+bool bomba = 0;
 bool bar = 0;
 char lcd_text[2][20+1];
 int i;
@@ -58,6 +61,7 @@ uint8_t tempo = 0x0A;
 //Declaración de Funciones:
 __NO_RETURN void app_main (void *arg);
 void Thread_random (void *argument); 
+void Thread_Bomba(void);
 
 
 /* IP address change notification */
@@ -87,39 +91,9 @@ void netDHCP_Notify (uint32_t if_num, uint8_t option, const uint8_t *val, uint32
 //Funcion que realiza las representaciones en el LCD:
 static __NO_RETURN void Display (void *arg) 
 {
-	(void)arg;
-	LEDrun = false;
-	static char buf[24];
-
-	// ---> Comentamos estas dos lineas porque representamos el reloj con RTC y al entrar en el menu del server del LCD crea conflicto.
-	//init(); //IMPORTANTE --> inicializar y resetear el LCD aqui y no en el main del micro o en el del servidor.
-	//LCD_reset();
-
-	 // --> Otra forma de hacerlo:
-	/***************************/
-	//escribeLinea1(lcd_text[0]);
-	//escribeLinea2(lcd_text[1]);
-	
-	EscribeFraseL1(lcd_text[0]);
-	EscribeFraseL2(lcd_text[1]);
-
   while(1) 
 	{
-		osThreadFlagsWait (0x01U, osFlagsWaitAny, osWaitForever); //Se utiliza el hilo que se proporciona por defecto. La señal proviene del archivo HTTP_Server_CGI.
-		
-		sprintf (buf, "%-20s", lcd_text[0]);
-		sprintf (buf, "%-20s", lcd_text[1]);
-		
-   	// --> Otra forma de hacerlo:
-	 /***************************/
-		//LCD_clear_L1();
-		//escribeLinea1(lcd_text[0]); 
-   	//LCD_clear_L2();
-		//escribeLinea2(lcd_text[1]);*/
-		
-		limpiardisplay();
-		EscribeFraseL1(lcd_text[0]);		
-		EscribeFraseL2(lcd_text[1]);
+	
   }
 }
 
@@ -193,8 +167,100 @@ void LED_Init(void)
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);	
 }	
 
+ //Función de inicialización del hilo encargado de la alimentación de los peces:
+int Init_Thread_alim_pez (void) 
+{  
+	init_Digital_PIN_Out();
+  th_alim_pez = osThreadNew(function_th_alim_pez, NULL, NULL);
+  if (th_alim_pez == NULL) {
+    return(-1);
+  }
+ 
+  return(0);
+}
+ 
+/*----------------------------------------------------------------------------
+  Alimentación de los Peces
+ *---------------------------------------------------------------------------*/
+/***********************************************************************
+ * EXPLICACION: el motor tiene un paso básico de 64 pasos por vuelta,  *
+ * por lo tanto 64*8 half-steps por paso completo = 512, es decir      *
+ * 512*64 = 4096. 																										 *
+ ***********************************************************************/		
+void function_th_alim_pez (void *argument) 
+{
+  while(1)
+	{
+		if(alimentacion == 1)
+		{				
+			for (int i = 0; i < 4096; i++)
+			{
+				if (alimentacion == 0)
+          break;  
+				
+				Step8(); 
+				osDelay(2);
+				Step7(); 
+				osDelay(2);
+				Step6(); 
+				osDelay(2);
+				Step5(); 
+				osDelay(2);
+				Step4(); 
+				osDelay(2);
+				Step3(); 
+				osDelay(2);
+				Step2(); 
+				osDelay(2);
+				Step1(); 
+				osDelay(2);
+			}
+			osThreadSuspend(NULL);
+		}	
+		else if(alimentacion == 0)
+		{
+			osThreadSuspend(NULL);
+		}
+		
+  }
+}
 
+//Función de inicialización del hilo encargado de la Bomba de Agua:
+int Init_Thread_Bomba (void) 
+{  
+	tid_Thread_Bomba = osThreadNew(Thread_Bomba, NULL, NULL);
+	
+  if (tid_Thread_Bomba == NULL) 
+	{
+    return(-1);
+  }
+ 
+  return(0);
+}
 
+//Hilo que controla la Bomba de Agua:
+void Thread_Bomba(void)
+{
+    while (1)
+    {
+			if(bomba == 0)
+			{
+				printf("Bomba OFF\n");
+				
+				//Apagar la bomba 
+				HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_SET);
+				osDelay(5000); //Encendida 5 segundos
+			}
+			else if(bomba == 1)
+			{
+				printf("Bomba ON\n");
+			
+				// Encender la bomba  (relé inactivo)
+				HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_RESET);
+				osDelay(5000); //Apagada 5 segundos
+			}
+    }
+}
 
 
 
@@ -246,6 +312,10 @@ void Thread_random (void *argument)
 			{            
 					datosRandomTurbidez -= 3.3f;  //Mantener dentro del rango [0 ; 3.3)
 			}*/
+			
+			// Truncar a 2 decimales
+			datosRandom = (int)(datosRandom * 100) / 100.0f;
+			
 			osDelay(6000);
 	}
 }
@@ -282,7 +352,7 @@ __NO_RETURN void app_main (void *arg)
 	
 	
 	
-	//Inicializacion de los LED normales mas el RGB para ejemplo de ESTUDIO:
+
 	LED_Init();
 	//LED_Initialize_stm();
 	netInitialize(); //Se inicializan los LED, el ADC y la red.
@@ -291,16 +361,17 @@ __NO_RETURN void app_main (void *arg)
 	c_entry();
 	initUart();
 	
-	Init_Thread_lcd();
 	Init_Thread_sntp();	
 	Init_Thread_alim_pez();
 	init_Digital_PIN_Out();
+	Configurar_pin_bomba();
+	Init_Thread_Bomba();
 	
 	configurar_esclavo_bluetooth();
 	Init_Thread_slave();
 	
   TID_Led     = osThreadNew (BlinkLed, NULL, NULL);
-  TID_Display = osThreadNew (Display,  NULL, NULL);
+  //TID_Display = osThreadNew (Display,  NULL, NULL);
 	
   osThreadExit();
 }

@@ -43,7 +43,6 @@
 .\debug\principal.o: C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
 .\debug\principal.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include\cmsis_os2.h
 .\debug\principal.o: leds.h
-.\debug\principal.o: lcd.h
 .\debug\principal.o: Thread.h
 .\debug\principal.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_I2C.h
 .\debug\principal.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_Common.h

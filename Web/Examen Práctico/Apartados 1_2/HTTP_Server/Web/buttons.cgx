@@ -1,15 +1,15 @@
 t <form>
 t <text>
 t <id>luz</id>
-c m 1 <value>%f</value>
+c m 1 <value>%.2f</value>
 t </text>
 t <text>
 t <id>ph</id>
-c m 2 <value>%f</value>
+c m 2 <value>%.2f</value>
 t </text>
 t <text>
 t <id>temperatura</id>
-c m 3 <value>%f</value>
+c m 3 <value>%.2f</value>
 t </text>
 t <text>
 t <id>timeutc</id>

@@ -2,8 +2,6 @@
 #include "sntp.h"
 #include "Thread.h"
 #include "rtc.h" 
-                
-extern osThreadId_t tid_ThreadLcd;   
 
 osThreadId_t tid_ThreadSntp;
 
@@ -26,10 +24,8 @@ void Thread_sntp (void *argument)
 { 
   while (1) 
 	{		
-    get_time(); //Se realiza la peticion...
-		
-		osThreadFlagsSet(tid_ThreadLcd, representa); //...y se representa en el LCD.
-		
+    get_time(); //Se realiza la peticion.
+		RTC_getTime_Date();
     osThreadYield();           
   }
 }

@@ -419,16 +419,6 @@
               <FilePath>.\Arial12x12.h</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\lcd.h</FilePath>
-            </File>
-            <File>
               <FileName>sntp.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\sntp.c</FilePath>
@@ -452,11 +442,6 @@
               <FileName>Thread_SNTP.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Thread_SNTP.c</FilePath>
-            </File>
-            <File>
-              <FileName>Thread_LCD.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Thread_LCD.c</FilePath>
             </File>
             <File>
               <FileName>Thread.h</FileName>
@@ -487,6 +472,16 @@
               <FileName>alimentacion.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\alimentacion.h</FilePath>
+            </File>
+            <File>
+              <FileName>bomba.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bomba.c</FilePath>
+            </File>
+            <File>
+              <FileName>bomba.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\bomba.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -31,6 +31,8 @@ extern bool LEDrun;
 extern char lcd_text[2][20+1];
 extern osThreadId_t TID_Display;
 extern bool limpiezaActiva;
+extern bool alimentacion;
+extern bool bomba;
 osTimerId_t tim_id_s;
 static uint32_t exec;               
 
@@ -179,6 +181,28 @@ void netCGI_ProcessData (uint8_t code, const char *data, uint32_t len) {
 					limpiezaActiva = 0;
 				}        
       }
+			else if(strcmp (var, "activarAlimentacion=on") == 0) //--------------__MODO ALIMENTACIÓN__--------------
+	    {
+				if(alimentacion == 0)
+				{
+					alimentacion = 1;									
+				}
+				else
+				{
+					alimentacion = 0;
+				} 						
+			}
+			else if(strcmp (var, "activarBomba=on") == 0) //--------------__BOMBA DE AGUA__--------------
+	    {
+				if(bomba == 0)
+				{
+					bomba = 1;									
+				}
+				else
+				{
+					bomba = 0;
+				} 						
+			}
       else if (strcmp (var, "ctrl=Browser") == 0) {
 				LEDrun = false;				
       }
