@@ -173,35 +173,25 @@
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>datosLuz</ItemText>
+          <ItemText>rxBuffer,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>rxBuffer,0x0A</ItemText>
+          <ItemText>datosRandom,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>txBuffer,0x0A</ItemText>
+          <ItemText>limpiezaActiva,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>datosRandom,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>7</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>limpiezaActiva,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>8</count>
-          <WinNumber>1</WinNumber>
           <ItemText>alimentacion,0x0A</ItemText>
         </Ww>
         <Ww>
-          <count>9</count>
+          <count>7</count>
           <WinNumber>1</WinNumber>
           <ItemText>bomba,0x0A</ItemText>
         </Ww>

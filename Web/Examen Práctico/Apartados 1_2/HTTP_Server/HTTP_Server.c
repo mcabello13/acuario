@@ -355,9 +355,7 @@ __NO_RETURN void app_main (void *arg)
 
 	LED_Init();
 	//LED_Initialize_stm();
-	netInitialize(); //Se inicializan los LED, el ADC y la red.
-	//init(); //Inicializacion del LCD.
-	//LCD_reset();
+	netInitialize(); 
 	c_entry();
 	initUart();
 	
@@ -366,8 +364,6 @@ __NO_RETURN void app_main (void *arg)
 	init_Digital_PIN_Out();
 	Configurar_pin_bomba();
 	Init_Thread_Bomba();
-	
-	configurar_esclavo_bluetooth();
 	Init_Thread_slave();
 	
   TID_Led     = osThreadNew (BlinkLed, NULL, NULL);

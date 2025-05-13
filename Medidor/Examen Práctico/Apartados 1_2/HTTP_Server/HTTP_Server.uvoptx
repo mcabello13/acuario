@@ -178,17 +178,17 @@
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>datosLuz</ItemText>
+          <ItemText>datosSensorLuz</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>rxBuffer,0x0A</ItemText>
+          <ItemText>txBuffer,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>txBuffer,0x0A</ItemText>
+          <ItemText>datosSensorTurbidez</ItemText>
         </Ww>
       </WatchWindow1>
       <ScvdPack>

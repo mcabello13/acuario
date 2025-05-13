@@ -133,7 +133,6 @@ int main(void)
 	Init_Thread_turbidez();
 	creacion_hilos();
 	initUart();
-	configurar_master_bluetooth();
 	Init_Thread_master();
 	/*Init_Thread_lcd();
 	Init_Thread_sntp();*/

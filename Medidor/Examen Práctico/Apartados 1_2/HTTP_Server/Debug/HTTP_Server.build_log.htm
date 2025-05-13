@@ -26,105 +26,18 @@ Project File Date:  05/11/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target 'Debug'
-assembling irq_armv7m.s...
-compiling rtx_delay.c...
-compiling rtx_evflags.c...
-compiling rtx_evr.c...
-compiling rtx_lib.c...
-compiling rtx_kernel.c...
-compiling rtx_memory.c...
-compiling leds.c...
-leds.c(121): warning:  #188-D: enumerated type mixed with another type
-      HAL_GPIO_WritePin(LED_PIN[num].port, LED_PIN[num].pin, 1); //...se realizara el encendido.
-leds.c(147): warning:  #188-D: enumerated type mixed with another type
-      HAL_GPIO_WritePin(LED_PIN[num].port, LED_PIN[num].pin, 0);
-leds.c: 2 warnings, 0 errors
-compiling turbidez.c...
+Build target 'Debug'
 compiling bluetooth.c...
-bluetooth.c(76): warning:  #223-D: function "memset" declared implicitly
-  		memset(txBuffer, 0, sizeof(txBuffer));	
-bluetooth.c(78): warning:  #223-D: function "sprintf" declared implicitly
-      sprintf(txBuffer, "%s\r\n", cmd); // Los comandos AT terminan en \r\n
-bluetooth.c(79): warning:  #223-D: function "strlen" declared implicitly
-      HAL_UART_Transmit(huart, txBuffer, strlen(txBuffer), HAL_MAX_DELAY);
-bluetooth.c(79): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-      HAL_UART_Transmit(huart, txBuffer, strlen(txBuffer), HAL_MAX_DELAY);
-bluetooth.c(84): warning:  #223-D: function "memset" declared implicitly
-  	  memset(rxBuffer, 0, sizeof(rxBuffer));
-bluetooth.c(85): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-  		HAL_UART_Receive(huart, rxBuffer, sizeof(rxBuffer), 1000);		
-bluetooth.c(29): warning:  #177-D: variable "USARTuno"  was declared but never referenced
-  static ARM_DRIVER_USART * USARTuno = &Driver_USART3;
-bluetooth.c: 7 warnings, 0 errors
-compiling LED_32F469IDISCOVERY.c...
-compiling principal.c...
-principal.c(138): warning:  #1461-D: function declared with "noreturn" does return
-  }
-principal.c(31): warning:  #177-D: variable "GPIO_InitStruct"  was declared but never referenced
-  static GPIO_InitTypeDef GPIO_InitStruct;
-principal.c: 2 warnings, 0 errors
-compiling stm32f4xx_it.c...
-compiling ph.c...
-ph.c(142): warning:  #1-D: last line of file ends without a newline
-  }
-ph.c: 1 warning, 0 errors
-compiling luz.c...
-compiling main.c...
-main.c(131): warning:  #223-D: function "Init_Thread_luz" declared implicitly
-  	Init_Thread_luz();
-main.c(132): warning:  #223-D: function "Init_Thread_ph" declared implicitly
-  	Init_Thread_ph();
-main.c(133): warning:  #223-D: function "Init_Thread_turbidez" declared implicitly
-  	Init_Thread_turbidez();
-main.c(136): warning:  #223-D: function "configurar_master_bluetooth" declared implicitly
-  	configurar_master_bluetooth();
-main.c(137): warning:  #223-D: function "Init_Thread_master" declared implicitly
-  	Init_Thread_master();
-main.c(81): warning:  #177-D: variable "GPIO_InitStruct"  was declared but never referenced
-  static GPIO_InitTypeDef GPIO_InitStruct;
-main.c: 6 warnings, 0 errors
-compiling RTX_Config.c...
-compiling rtx_mempool.c...
-compiling os_systick.c...
-compiling retarget_io.c...
-compiling rtx_msgqueue.c...
-compiling rtx_system.c...
-compiling rtx_timer.c...
-compiling rtx_semaphore.c...
-compiling rtx_mutex.c...
-compiling rtx_thread.c...
-compiling EventRecorder.c...
-compiling I2C_STM32F4xx.c...
-compiling USART_STM32F4xx.c...
-compiling SPI_STM32F4xx.c...
-compiling stm32f4xx_hal_gpio.c...
-compiling stm32f4xx_hal.c...
-compiling stm32f4xx_hal_dma.c...
-compiling stm32f4xx_hal_adc_ex.c...
-compiling stm32f4xx_hal_cortex.c...
-compiling stm32f4xx_hal_dma_ex.c...
-compiling stm32f4xx_hal_adc.c...
-compiling stm32f4xx_hal_i2c.c...
-compiling stm32f4xx_hal_i2c_ex.c...
-compiling stm32f4xx_hal_pwr.c...
-compiling stm32f4xx_hal_pwr_ex.c...
-compiling stm32f4xx_hal_rtc.c...
-compiling stm32f4xx_hal_sram.c...
-compiling stm32f4xx_hal_spi.c...
-compiling stm32f4xx_hal_rtc_ex.c...
-assembling startup_stm32f429xx.s...
-compiling stm32f4xx_hal_rcc_ex.c...
-compiling stm32f4xx_hal_tim_ex.c...
-compiling stm32f4xx_hal_rcc.c...
-compiling stm32f4xx_hal_tim.c...
-compiling system_stm32f4xx.c...
-compiling stm32f4xx_hal_uart.c...
-compiling stm32f4xx_ll_fmc.c...
-compiling stm32f4xx_hal_usart.c...
+bluetooth.c(58): warning:  #223-D: function "strlen" declared implicitly
+      HAL_UART_Transmit(huart, cmd, strlen(txBuffer), 1000);
+bluetooth.c(58): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+      HAL_UART_Transmit(huart, cmd, strlen(txBuffer), 1000);
+bluetooth.c(79): warning:  #223-D: function "sprintf" declared implicitly
+  		sprintf(txBuffer, "%.2f:%.2f", datosSensorLuz, datosSensorTurbidez);
+bluetooth.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=68888 RO-data=1116 RW-data=34420 ZI-data=3848  
-".\Debug\HTTP_Server.axf" - 0 Error(s), 18 Warning(s).
+Program Size: Code=68648 RO-data=1116 RW-data=34428 ZI-data=3840  
+".\Debug\HTTP_Server.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -214,41 +127,41 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.5.0
 
    * Component: ARM::CMSIS:RTOS2:Keil RTX5:Source:5.5.3
-      Source file:   CMSIS\RTOS2\Source\os_systick.c
       Include file:  CMSIS\RTOS2\RTX\Include\rtx_os.h
       Include file:  CMSIS\RTOS2\RTX\Config\RTX_Config.h
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_thread.c
-      Source file:   CMSIS\RTOS2\RTX\Config\RTX_Config.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_memory.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_mutex.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_system.c
       Source file:   CMSIS\RTOS2\RTX\Source\rtx_evr.c
+      Source file:   CMSIS\RTOS2\RTX\Template\Timer.c
+      Source file:   CMSIS\RTOS2\RTX\Template\Semaphore.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_memory.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_mempool.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_kernel.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_mutex.c
+      Source file:   CMSIS\RTOS2\RTX\Template\MsgQueue.c
+      Source file:   CMSIS\RTOS2\RTX\Template\Thread.c
+      Source file:   CMSIS\RTOS2\RTX\Template\svc_user.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_thread.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_lib.c
+      Source file:   CMSIS\RTOS2\RTX\Source\ARM\irq_armv7m.s
+      Source file:   CMSIS\RTOS2\RTX\Template\main.c
+      Source file:   CMSIS\RTOS2\RTX\Template\MemPool.c
       Source file:   CMSIS\RTOS2\RTX\Template\Mutex.c
       Source file:   CMSIS\RTOS2\RTX\Source\rtx_timer.c
-      Source file:   CMSIS\RTOS2\RTX\Source\ARM\irq_armv7m.s
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_msgqueue.c
-      Source file:   CMSIS\RTOS2\RTX\Template\Semaphore.c
-      Source file:   CMSIS\RTOS2\RTX\Template\main.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_system.c
-      Source file:   CMSIS\RTOS2\RTX\Template\MsgQueue.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_lib.c
-      Source file:   CMSIS\RTOS2\RTX\Template\svc_user.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_semaphore.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_mempool.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_delay.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_evflags.c
-      Source file:   CMSIS\RTOS2\RTX\Template\MemPool.c
+      Source file:   CMSIS\RTOS2\RTX\Config\RTX_Config.c
       Source file:   CMSIS\RTOS2\RTX\Template\Events.c
-      Source file:   CMSIS\RTOS2\RTX\Template\Thread.c
-      Source file:   CMSIS\RTOS2\RTX\Template\Timer.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_kernel.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_evflags.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_msgqueue.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_semaphore.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_delay.c
+      Source file:   CMSIS\RTOS2\Source\os_systick.c
 
    * Component: Keil.32F469IDISCOVERY::Board Support:LED:1.0.0
       Source file:   MDK\Boards\ST\32F469IDISCOVERY\Common\LED_32F469IDISCOVERY.c
 
    * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
-      Source file:   Source\EventRecorder.c
       Include file:  Include\EventRecorder.h
       Include file:  Config\EventRecorderConf.h
+      Source file:   Source\EventRecorder.c
 
    * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:ITM:1.2.0
       Source file:   Source\retarget_io.c
@@ -263,37 +176,37 @@ Package Vendor: Keil
       Source file:   CMSIS\Driver\USART_STM32F4xx.c
 
    * Component: Keil::Device:STM32Cube Framework:Classic:1.7.9
-      Include file:  MDK\Templates\Inc\stm32f4xx_it.h
-      Include file:  CMSIS\Driver\Config\RTE_Device.h
-      Include file:  MDK\Templates_LL\Inc\main.h
-      Source file:   MDK\Templates_LL\Src\main.c
-      Include file:  MDK\Templates\Inc\main.h
       Include file:  MDK\Templates\Inc\stm32f4xx_hal_conf.h
-      Source file:   MDK\Templates\Src\stm32f4xx_hal_msp.c
+      Include file:  MDK\Templates\Inc\main.h
+      Include file:  MDK\Templates_LL\Inc\main.h
       Source file:   MDK\Templates\Src\main.c
+      Include file:  CMSIS\Driver\Config\RTE_Device.h
+      Include file:  MDK\Templates\Inc\stm32f4xx_it.h
       Source file:   MDK\Templates\Src\stm32f4xx_it.c
+      Source file:   MDK\Templates\Src\stm32f4xx_hal_msp.c
+      Source file:   MDK\Templates_LL\Src\main.c
 
    * Component: Keil::Device:STM32Cube HAL:ADC:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:Common:1.7.9
-      Include file:  Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c
+      Include file:  Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h
 
    * Component: Keil::Device:STM32Cube HAL:Cortex:1.7.9
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c
 
    * Component: Keil::Device:STM32Cube HAL:DMA:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:GPIO:1.7.9
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c
 
    * Component: Keil::Device:STM32Cube HAL:I2C:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:PWR:1.7.9
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c
@@ -304,8 +217,8 @@ Package Vendor: Keil
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:RTC:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:SPI:1.7.9
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c
@@ -315,8 +228,8 @@ Package Vendor: Keil
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fmc.c
 
    * Component: Keil::Device:STM32Cube HAL:TIM:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c
 
    * Component: Keil::Device:STM32Cube HAL:UART:1.7.9
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c
@@ -325,12 +238,12 @@ Package Vendor: Keil
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_usart.c
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK\Device\Source\ARM\STM32F42xxx_43xxx_OPT.s
-      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f429xx.s
+      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
+      Source file:   MDK\Device\Source\ARM\STM32F42xxx_43xxx_OPT.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
-Build Time Elapsed:  00:01:29
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

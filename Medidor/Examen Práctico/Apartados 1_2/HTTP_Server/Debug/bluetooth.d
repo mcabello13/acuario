@@ -47,3 +47,4 @@
 .\debug\bluetooth.o: C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
 .\debug\bluetooth.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_USART.h
 .\debug\bluetooth.o: luz.h
+.\debug\bluetooth.o: adc.h

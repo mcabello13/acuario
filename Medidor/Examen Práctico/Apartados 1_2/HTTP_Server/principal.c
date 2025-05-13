@@ -35,6 +35,8 @@ bool LEDrun;
 char lcd_text[2][20+1];
 ADC_HandleTypeDef adchandle; 
 float value = 0;
+float datosSensorLuz = 0;
+float datosSensorTurbidez = 0;
 
 //Funciones:
 __NO_RETURN void app_main (void *arg);
@@ -99,6 +101,7 @@ void Thread_turbidez (void *argument)
 
 		ADC_StartConversion_stm(&adchandle, ADC1); 
 		value = ADC_getVoltage_stm(&adchandle, 10);
+		datosSensorTurbidez = value;
 	}
 }
 
@@ -107,8 +110,7 @@ void Thread_luz (void *argument)
 { 		
 	while(1)
 	{	
-		realizarMedida();
-		osDelay(1000);
+		datosSensorLuz = realizarMedida();
 	}
 }
 
@@ -118,7 +120,6 @@ void Thread_ph (void *argument)
 	while(1)
 	{	
 		pH_Sensor_Read();
-		osDelay(2000);
 	}
 }
 
@@ -128,8 +129,6 @@ void creacion_hilos(void)
 	TID_turbidez = osThreadNew (Thread_turbidez,  NULL, NULL);
 	TID_luz = osThreadNew (Thread_luz,  NULL, NULL);
 	TID_ph = osThreadNew (Thread_ph,  NULL, NULL);
-	//TID_Led     = osThreadNew (BlinkLed, NULL, NULL);
-  //TID_Display = osThreadNew (Display,  NULL, NULL);
 }
 
 __NO_RETURN void app_main (void *arg) 
