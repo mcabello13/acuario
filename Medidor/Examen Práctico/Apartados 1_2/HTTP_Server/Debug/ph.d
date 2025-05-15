@@ -42,3 +42,7 @@
 .\debug\ph.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\Include\cmsis_os2.h
 .\debug\ph.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\debug\ph.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\debug\ph.o: Thread.h
+.\debug\ph.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_I2C.h
+.\debug\ph.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_Common.h
+.\debug\ph.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

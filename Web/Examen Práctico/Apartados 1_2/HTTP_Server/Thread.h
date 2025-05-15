@@ -1,3 +1,6 @@
+#ifndef __THREAD_H
+#define __THREAD_H
+
 #include "cmsis_os2.h"  
 #include "Driver_I2C.h"
 
@@ -17,3 +20,5 @@ extern int Init_Thread_sntp (void);
 extern void initI2C(void);
 extern float realizarMedida(void);
 extern void initUart(void);
+
+#endif

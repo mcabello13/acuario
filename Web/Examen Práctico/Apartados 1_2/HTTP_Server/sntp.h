@@ -1,3 +1,6 @@
+#ifndef __SNTP_H
+#define __SNTP_H
+
 #include "rl_net.h"                     
 #include "time.h"
 #include "time.h"
@@ -7,3 +10,5 @@
 
 extern struct tm tiempo_SNTP;
 extern void get_time (void);
+
+#endif

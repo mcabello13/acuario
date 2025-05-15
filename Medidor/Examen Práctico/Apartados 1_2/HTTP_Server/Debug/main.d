@@ -48,3 +48,5 @@
 .\debug\main.o: luz.h
 .\debug\main.o: turbidez.h
 .\debug\main.o: ph.h
+.\debug\main.o: temperatura.h
+.\debug\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

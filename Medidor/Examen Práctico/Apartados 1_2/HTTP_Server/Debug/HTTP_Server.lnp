@@ -7,6 +7,7 @@
 ".\debug\bluetooth.o"
 ".\debug\principal.o"
 ".\debug\ph.o"
+".\debug\temperatura.o"
 ".\debug\led_32f469idiscovery.o"
 ".\debug\irq_armv7m.o"
 ".\debug\rtx_delay.o"

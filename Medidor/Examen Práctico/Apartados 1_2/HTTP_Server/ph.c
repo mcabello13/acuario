@@ -2,13 +2,16 @@
 #include "cmsis_os2.h"
 #include <string.h>
 #include <stdio.h>
+#include "Thread.h"                  
 
 #define PH_RX_LEN 20
 
-I2C_HandleTypeDef hi2c1;  // Declaración externa (ya inicializado en otro archivo)
+I2C_HandleTypeDef hi2c2;  // Declaración externa (ya inicializado en otro archivo)
 int32_t convert_24bit_to_int32(uint8_t msb, uint8_t mid, uint8_t lsb);
 float adc_code_to_voltage(int32_t adc_code, float vref);
 float calcular_pH(float voltage_mV);
+float voltageAgua = 0.0f;
+float phAgua = 0;
 
 //void pH_Thread(void *argument) {
 //    char comando = 'R';
@@ -38,32 +41,32 @@ float calcular_pH(float voltage_mV);
 //}
 
 //Función que inicializa el I2C:
-void MX_I2C1_Init(void)
+void MX_I2C2_Init(void)
 {
 
-    __HAL_RCC_I2C1_CLK_ENABLE();
+    __HAL_RCC_I2C2_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
 
-    // Configuración de pines PB8 (SCL) y PB9 (SDA)
+    // Configuración de pines PB10 (SCL) y PB11 (SDA)
     GPIO_InitTypeDef GPIO_InitStruct = {0};
-    GPIO_InitStruct.Pin = GPIO_PIN_8 | GPIO_PIN_9;
+    GPIO_InitStruct.Pin = GPIO_PIN_10 | GPIO_PIN_11;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    hi2c1.Instance = I2C1;
-    hi2c1.Init.ClockSpeed = 100000;
-    hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
-    hi2c1.Init.OwnAddress1 = 0;
-    hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-    hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-    hi2c1.Init.OwnAddress2 = 0;
-    hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-    hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+    hi2c2.Instance = I2C2;
+    hi2c2.Init.ClockSpeed = 100000;
+    hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
+    hi2c2.Init.OwnAddress1 = 0;
+    hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+    hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+    hi2c2.Init.OwnAddress2 = 0;
+    hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+    hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
 
-    HAL_I2C_Init(&hi2c1);
+    HAL_I2C_Init(&hi2c2);
 
 }
 #define PH_SENSOR_I2C_ADDR (0x24 << 1)
@@ -106,14 +109,15 @@ float adc_code_to_voltage(int32_t adc_code, float vref)
 //Función que calibra el sensor:
 float calcular_pH_calibrado(float voltage_mV, float offset_mV, float slope_mV_per_pH) 
 {
-    return 7.0f - ((voltage_mV - offset_mV) / slope_mV_per_pH);
+    phAgua = 7.0f - ((voltage_mV - offset_mV) / slope_mV_per_pH);;
+    return phAgua;
 }
 
 //Función que imprime por pantalla los valores medidos:
 void mostrar_pH_y_voltaje(float voltage_mV) 
 {
     float ph = calcular_pH_calibrado(voltage_mV* 1000.0f, offset_mV, slope_mV_per_pH);
-    printf("Voltaje PH: %.2f mV | pH: %.2f\n", voltage_mV * 1000.0f, ph);
+    //printf("Voltaje PH: %.2f mV | pH: %.2f\n", voltage_mV * 1000.0f, ph);
 }
 
 //Función que realiza las lecturas del Sensor de pH:
@@ -121,21 +125,20 @@ void pH_Sensor_Read(void)
 {
     uint8_t rx[3];
     int32_t adc_code = 0;
-    float voltage = 0.0f;
 
     while (1) 
 		{
-        if (HAL_I2C_Master_Receive(&hi2c1, PH_SENSOR_I2C_ADDR, rx, 3, HAL_MAX_DELAY) == HAL_OK) 
+        if (HAL_I2C_Master_Receive(&hi2c2, PH_SENSOR_I2C_ADDR, rx, 3, HAL_MAX_DELAY) == HAL_OK) 
 				{
             adc_code = convert_24bit_to_int32(rx[2], rx[1], rx[0]);  // LSB first!
-            voltage = adc_code_to_voltage(adc_code, ADC_VREF);
-					  mostrar_pH_y_voltaje(voltage);
+            voltageAgua = adc_code_to_voltage(adc_code, ADC_VREF);
+					  mostrar_pH_y_voltaje(voltageAgua);
              //float ph = calcular_pH_calibrado(voltage, offset_mV, slope_mV_per_pH);
-            printf("%ld BNC Input Voltage: %.2f mV\n", adc_code, voltage * 1000.0f);
+            //printf("%ld BNC Input Voltage: %.2f mV\n", adc_code, voltageAgua * 1000.0f);
         } 
 				else 
 				{
-            printf("***** I2C ERROR (Lectura) *****\n");
+            //printf("***** I2C ERROR (Lectura) *****\n");
         }
         osDelay(1000);
     }

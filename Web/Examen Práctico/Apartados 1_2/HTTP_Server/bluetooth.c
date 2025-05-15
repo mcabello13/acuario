@@ -9,7 +9,11 @@ osThreadId_t tid_ThreadSlave;
 void Thread_slave (void *argument);  
 
 //Variables:
-char rxBuffer[10] = {0};
+char rx = 0;
+char rxBuffer[8] = {0};
+int p = 0;
+
+
 UART_HandleTypeDef huart3;
 
 
@@ -60,18 +64,37 @@ int Init_Thread_slave (void)
 
 //Función para recibir comandos por parte del esclavo desde el master:
 void receiveResponse(UART_HandleTypeDef *huart) 
-{
-	  
-		HAL_UART_Receive(huart, rxBuffer, sizeof(rxBuffer), 1000);		
-	  osDelay(3000);
-		memset(rxBuffer, 0, sizeof(rxBuffer));
+{	  	
+		HAL_UART_Receive(huart, &rx, 1, HAL_MAX_DELAY);		
+	
+		if(rx == 'A')
+		{
+			p = 0;
+			
+			for(p=0; p<8; p++)
+			{			
+				HAL_UART_Receive(huart, &rx, 1, HAL_MAX_DELAY);			
+				
+				if(rx != '\n')
+				{
+					rxBuffer[p] = rx;			
+				}
+				else if(rx == '\n')
+				{
+					rxBuffer[p] = '\0';
+					osDelay(100);
+					p = 0;
+					memset(rxBuffer, 0, sizeof(rxBuffer));
+					break;
+				}				
+				osDelay(100);
+			}
+		}
 }
 
 //Hilo que gestiona la recepción de datos por parte del Esclavo Bluetooth:
 void Thread_slave (void *argument) 
-{ 
-	UART_HandleTypeDef *huart;
-	
+{ 	
 	while(1)
 	{
 		receiveResponse(&huart3);

@@ -14,8 +14,7 @@ void Thread_master (void *argument);
 //Variables:
 uint8_t cmd; 
 UART_HandleTypeDef huart3;
-char cadena[50] = {0};
-char txBuffer[50] = {0};
+char txBuffer[8] = {0};
 extern float datosSensorTurbidez;
 extern float datosSensorLuz;
 
@@ -55,7 +54,7 @@ void initUart(void)
 void send(UART_HandleTypeDef *huart, char *cmd) 
 {	
     //sprintf(txBuffer, "%f", cmd); 
-    HAL_UART_Transmit(huart, cmd, strlen(txBuffer), 1000);
+    HAL_UART_Transmit(huart, cmd, 1, HAL_MAX_DELAY);
 }
 
 //Función que inicializa el hilo del Maestro Bluetooth:
@@ -75,9 +74,13 @@ int Init_Thread_master (void)
 void Thread_master (void *argument) 
 { 
 	while(1)
-	{			
-		sprintf(txBuffer, "%.2f:%.2f", datosSensorLuz, datosSensorTurbidez);
-		send(&huart3, txBuffer);
-    osDelay(5000);		
+	{	
+		sprintf(txBuffer, "A%.2f\n", datosSensorLuz);
+		
+		for(int i=0; i<8; i++)
+		{
+			send(&huart3, &txBuffer[i]);   
+			osDelay(500);
+		}
 	}
 }

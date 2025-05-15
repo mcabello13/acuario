@@ -458,6 +458,16 @@
               <FileType>5</FileType>
               <FilePath>.\ph.h</FilePath>
             </File>
+            <File>
+              <FileName>temperatura.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\temperatura.c</FilePath>
+            </File>
+            <File>
+              <FileName>temperatura.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\temperatura.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

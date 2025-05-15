@@ -1,3 +1,6 @@
+#ifndef __RTC_H
+#define __RTC_H
+
 #include "stm32f4xx_hal.h"
 #include "rl_net.h"                    
 
@@ -19,3 +22,5 @@ extern RTC_HandleTypeDef RtcHandle;
 extern void RTC_setTime(void);
 
 extern void SleepMode(void);
+
+#endif

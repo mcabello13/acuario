@@ -50,7 +50,6 @@
 .\debug\http_server.o: sntp.h
 .\debug\http_server.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
 .\debug\http_server.o: bluetooth.h
-.\debug\http_server.o: Thread.h
 .\debug\http_server.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_USART.h
 .\debug\http_server.o: alimentacion.h
 .\debug\http_server.o: bomba.h

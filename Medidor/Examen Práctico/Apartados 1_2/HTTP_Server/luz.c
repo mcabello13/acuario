@@ -79,6 +79,7 @@ float realizarMedida(void)
 			datosLuz = 0;
 		}	
 		
-		printf("La luz medida es: %.2f%%\n", datosLuz);
+		//printf("La luz medida es: %.2f%%\n", datosLuz);
+    osDelay(3000);
 		return datosLuz;
 }
