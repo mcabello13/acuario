@@ -468,6 +468,26 @@
               <FileType>5</FileType>
               <FilePath>.\temperatura.h</FilePath>
             </File>
+            <File>
+              <FileName>alimentacion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\alimentacion.c</FilePath>
+            </File>
+            <File>
+              <FileName>alimentacion.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\alimentacion.h</FilePath>
+            </File>
+            <File>
+              <FileName>bomba.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bomba.c</FilePath>
+            </File>
+            <File>
+              <FileName>bomba.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\bomba.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

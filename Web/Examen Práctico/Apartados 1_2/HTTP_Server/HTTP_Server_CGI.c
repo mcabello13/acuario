@@ -31,7 +31,7 @@ extern bool LEDrun;
 extern char lcd_text[2][20+1];
 extern osThreadId_t TID_Display;
 extern bool limpiezaActiva;
-extern bool alimentacion;
+bool alimentacion = 0;
 extern bool bomba;
 osTimerId_t tim_id_s;
 static uint32_t exec;               

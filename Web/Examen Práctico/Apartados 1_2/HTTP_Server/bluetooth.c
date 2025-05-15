@@ -10,8 +10,12 @@ void Thread_slave (void *argument);
 
 //Variables:
 char rx = 0;
-char rxBuffer[8] = {0};
+char identificador = 0;
+char rxBuffer[20] = {0};
 int p = 0;
+extern bool limpiezaActiva;
+extern bool alimentacion;
+extern bool bomba;
 
 
 UART_HandleTypeDef huart3;
@@ -49,6 +53,12 @@ void initUart(void)
     }
 }
 
+//Función que realiza el envío del Esclavo al Maestro:
+void send(UART_HandleTypeDef *huart, char *cmd) 
+{	
+    HAL_UART_Transmit(huart, cmd, 1, 100);
+}
+
 //Función que inicializa el hilo para controlar el Esclavo bluetooth:
 int Init_Thread_slave (void) 
 {
@@ -65,15 +75,15 @@ int Init_Thread_slave (void)
 //Función para recibir comandos por parte del esclavo desde el master:
 void receiveResponse(UART_HandleTypeDef *huart) 
 {	  	
-		HAL_UART_Receive(huart, &rx, 1, HAL_MAX_DELAY);		
+		HAL_UART_Receive(huart, &rx, 1, 500);		
 	
 		if(rx == 'A')
 		{
 			p = 0;
 			
-			for(p=0; p<8; p++)
+			for(p=0; p<20; p++)
 			{			
-				HAL_UART_Receive(huart, &rx, 1, HAL_MAX_DELAY);			
+				HAL_UART_Receive(huart, &rx, 1, 500);			
 				
 				if(rx != '\n')
 				{
@@ -97,6 +107,29 @@ void Thread_slave (void *argument)
 { 	
 	while(1)
 	{
-		receiveResponse(&huart3);
+		if(limpiezaActiva == 1 || alimentacion == 1 || bomba == 1)
+		{
+			if(limpiezaActiva == 1)
+			{
+				identificador = 'L';
+				send(&huart3, &identificador);				
+			}
+			else if(alimentacion == 1)
+			{
+				identificador = 'C';
+				send(&huart3, &identificador);
+			}
+			else if(bomba == 1)
+			{
+				identificador = 'B';
+				send(&huart3, &identificador);
+			}
+			identificador = 0;			
+			osDelay(100);
+		}
+		else
+		{
+			receiveResponse(&huart3);
+		}
 	}
 }

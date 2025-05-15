@@ -9,4 +9,7 @@ void MX_I2C2_Init(void);
 void I2C2_GPIO_Config(void) ;
 void pH_Sensor_Read(void);
 void initI2C2(void);
+
+extern float phAgua;
+
 #endif

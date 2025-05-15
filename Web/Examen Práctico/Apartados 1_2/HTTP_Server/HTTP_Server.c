@@ -36,7 +36,6 @@ osThreadId_t TID_Led;
 osThreadId_t TID_RTC;
 osThreadId_t tid_ThreadModoBajoConsumo;
 osThreadId_t tid_Threadrandom; 
-osThreadId_t th_alim_pez;
 osThreadId_t tid_Thread_Bomba;
 
 
@@ -48,7 +47,6 @@ float datosRandom = 0;
 float datosRandomTurbidez = 0;
 bool LEDrun;
 bool limpiezaActiva = 0;
-bool alimentacion = 0;
 bool bomba = 0;
 bool bar = 0;
 char lcd_text[2][20+1];
@@ -167,63 +165,7 @@ void LED_Init(void)
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);	
 }	
 
- //Función de inicialización del hilo encargado de la alimentación de los peces:
-int Init_Thread_alim_pez (void) 
-{  
-	init_Digital_PIN_Out();
-  th_alim_pez = osThreadNew(function_th_alim_pez, NULL, NULL);
-  if (th_alim_pez == NULL) {
-    return(-1);
-  }
- 
-  return(0);
-}
- 
-/*----------------------------------------------------------------------------
-  Alimentación de los Peces
- *---------------------------------------------------------------------------*/
-/***********************************************************************
- * EXPLICACION: el motor tiene un paso básico de 64 pasos por vuelta,  *
- * por lo tanto 64*8 half-steps por paso completo = 512, es decir      *
- * 512*64 = 4096. 																										 *
- ***********************************************************************/		
-void function_th_alim_pez (void *argument) 
-{
-  while(1)
-	{
-		if(alimentacion == 1)
-		{				
-			for (int i = 0; i < 4096; i++)
-			{
-				if (alimentacion == 0)
-          break;  
-				
-				Step8(); 
-				osDelay(2);
-				Step7(); 
-				osDelay(2);
-				Step6(); 
-				osDelay(2);
-				Step5(); 
-				osDelay(2);
-				Step4(); 
-				osDelay(2);
-				Step3(); 
-				osDelay(2);
-				Step2(); 
-				osDelay(2);
-				Step1(); 
-				osDelay(2);
-			}
-			osThreadSuspend(NULL);
-		}	
-		else if(alimentacion == 0)
-		{
-			osThreadSuspend(NULL);
-		}
-		
-  }
-}
+
 
 //Función de inicialización del hilo encargado de la Bomba de Agua:
 int Init_Thread_Bomba (void) 
@@ -360,8 +302,7 @@ __NO_RETURN void app_main (void *arg)
 	initUart();
 	
 	Init_Thread_sntp();	
-	Init_Thread_alim_pez();
-	init_Digital_PIN_Out();
+	//init_Digital_PIN_Out();
 	Configurar_pin_bomba();
 	Init_Thread_Bomba();
 	Init_Thread_slave();

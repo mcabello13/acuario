@@ -5,18 +5,23 @@
 #include "stm32f4xx_hal.h"
 #include "luz.h"
 #include "adc.h"
+#include "ph.h"
 
 
 //Hilos:
 osThreadId_t tid_ThreadMaster;
-void Thread_master (void *argument);   
+osThreadId_t tid_ThreadSlave; 
+void Thread_master (void /**argument*/);  
+void Thread_slave (void *argument);  
   
 //Variables:
+char rx = 2;
 uint8_t cmd; 
 UART_HandleTypeDef huart3;
-char txBuffer[8] = {0};
+char txBuffer[20] = {0};
 extern float datosSensorTurbidez;
 extern float datosSensorLuz;
+extern bool alimentacion;
 
        
 
@@ -57,8 +62,25 @@ void send(UART_HandleTypeDef *huart, char *cmd)
     HAL_UART_Transmit(huart, cmd, 1, HAL_MAX_DELAY);
 }
 
+//Función para recibir comandos por parte del esclavo desde el master:
+void receiveResponse(UART_HandleTypeDef *huart) 
+{	  	
+		HAL_UART_Receive(huart, &rx, 1, 100);		
+	
+		if(rx == 'C')
+		{
+			alimentacion = 1;
+			rx = 0;
+		}
+		else
+		{
+			alimentacion = 0;
+			//rx = 0;
+		}
+}
+
 //Función que inicializa el hilo del Maestro Bluetooth:
-int Init_Thread_master (void) 
+/*int Init_Thread_master (void) 
 {
   tid_ThreadMaster = osThreadNew(Thread_master, NULL, NULL);
 	
@@ -68,19 +90,45 @@ int Init_Thread_master (void)
   }
  
   return(0);
-}
+}*/
 
 //Hilo que gestiona los envios del Maestro Bluetooth:
-void Thread_master (void *argument) 
+void Thread_master (void /**argument*/) 
 { 
-	while(1)
-	{	
-		sprintf(txBuffer, "A%.2f\n", datosSensorLuz);
-		
-		for(int i=0; i<8; i++)
+	//while(1)
+	//{	
+		if(rx != 0)
 		{
-			send(&huart3, &txBuffer[i]);   
-			osDelay(500);
+			sprintf(txBuffer, "A%.2fW%.2fW%.2f\n", datosSensorLuz, datosSensorTurbidez, phAgua);
+			
+			for(int i=0; i<20; i++)
+			{
+				send(&huart3, &txBuffer[i]);   
+				osDelay(500);
+			}
 		}
+	//}
+}
+
+//Función que inicializa el hilo para controlar el Esclavo bluetooth:
+int Init_Thread_slave (void) 
+{
+  tid_ThreadSlave = osThreadNew(Thread_slave, NULL, NULL);
+	
+  if (tid_ThreadSlave == NULL) 
+	{
+    return(-1);
+  }
+ 
+  return(0);
+}
+
+//Hilo que gestiona la recepción de datos por parte del Maestro Bluetooth:
+void Thread_slave (void *argument) 
+{ 	
+	while(1)
+	{
+		receiveResponse(&huart3);
+		Thread_master();
 	}
 }

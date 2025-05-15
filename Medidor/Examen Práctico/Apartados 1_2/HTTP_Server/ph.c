@@ -139,7 +139,7 @@ void pH_Sensor_Read(void)
 				else 
 				{
             //printf("***** I2C ERROR (Lectura) *****\n");
-        }
+        }				
         osDelay(1000);
     }
 }

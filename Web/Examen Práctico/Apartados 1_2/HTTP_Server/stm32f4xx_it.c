@@ -202,7 +202,7 @@ void SysTick_Handler(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {		
 	osDelay(700); //----------------------------------__ALIMENTACION DE LOS PECES__----------------------------------
-	osThreadFlagsSet(th_alim_pez, 0x01);
+	//osThreadFlagsSet(th_alim_pez, 0x01);
 }
 
 void EXTI15_10_IRQHandler(void)

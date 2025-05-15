@@ -48,3 +48,4 @@
 .\debug\bluetooth.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_USART.h
 .\debug\bluetooth.o: luz.h
 .\debug\bluetooth.o: adc.h
+.\debug\bluetooth.o: ph.h
