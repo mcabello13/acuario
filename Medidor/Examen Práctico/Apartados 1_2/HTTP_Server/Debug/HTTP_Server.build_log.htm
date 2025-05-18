@@ -22,12 +22,105 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 C:\Users\Castellana\Documents\Universidad\ISE\STM32F429\2024-2025\Bloque 2\Medidor\Examen Práctico\Apartados 1_2\HTTP_Server\HTTP_Server.uvprojx
-Project File Date:  05/15/2025
+Project File Date:  05/18/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'Debug'
-".\Debug\HTTP_Server.axf" - 0 Error(s), 0 Warning(s).
+Rebuild target 'Debug'
+compiling stm32f4xx_it.c...
+compiling luz.c...
+compiling bomba.c...
+compiling main.c...
+main.c(54): warning:  #1295-D: Deprecated declaration Init_Thread_Bomba - give arg types
+  void Init_Thread_Bomba();
+main.c(55): warning:  #1295-D: Deprecated declaration Init_Thread_slave - give arg types
+  void Init_Thread_slave();
+main.c: 2 warnings, 0 errors
+assembling irq_armv7m.s...
+compiling consumo.c...
+compiling rtx_evr.c...
+compiling rtx_delay.c...
+compiling principal.c...
+principal.c(101): warning:  #223-D: function "init_Digital_PIN_Out" declared implicitly
+  	init_Digital_PIN_Out();
+principal.c(115): warning:  #167-D: argument of type "void (*)(void)" is incompatible with parameter of type "osThreadFunc_t"
+  	tid_Thread_Bomba = osThreadNew(Thread_Bomba, NULL, NULL);
+principal.c(249): warning:  #223-D: function "ADC1_pins_F429ZI_config_consumo" declared implicitly
+  	ADC1_pins_F429ZI_config_consumo();
+principal.c(250): warning:  #223-D: function "ADC_Init_Single_Conversion_consumo" declared implicitly
+  	ADC_Init_Single_Conversion_consumo(&adchandle , ADC3);
+principal.c(253): warning:  #223-D: function "ADC_getVoltage_consumo" declared implicitly
+  		consumoTension = ADC_getVoltage_consumo(&adchandle, 15);
+principal.c(262): warning:  #1461-D: function declared with "noreturn" does return
+  }
+principal.c: 6 warnings, 0 errors
+compiling rtx_lib.c...
+compiling leds.c...
+leds.c(121): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(LED_PIN[num].port, LED_PIN[num].pin, 1); //...se realizara el encendido.
+leds.c(147): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(LED_PIN[num].port, LED_PIN[num].pin, 0);
+leds.c: 2 warnings, 0 errors
+compiling bluetooth.c...
+bluetooth.c(71): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+      HAL_UART_Transmit(huart, cmd, 1, 1000);
+bluetooth.c(77): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+  		HAL_UART_Receive(huart, &rx, 1, 100);		
+bluetooth.c(116): warning:  #223-D: function "sprintf" declared implicitly
+  		sprintf(txBuffer, "A%.2fW%.2fW%.2fW%.2fW%.2fW%.2f\n", datosSensorLuz, phAgua, temperatura, datosSensorTurbidez, consumoTension, consumoCorriente);
+bluetooth.c: 3 warnings, 0 errors
+compiling ph.c...
+ph.c(102): warning:  #167-D: argument of type "void (*)(void)" is incompatible with parameter of type "osThreadFunc_t"
+    tid_Thread_pH = osThreadNew(Thread_pH, NULL, NULL);
+ph.c: 1 warning, 0 errors
+compiling temperatura.c...
+compiling LED_32F469IDISCOVERY.c...
+compiling turbidez.c...
+compiling alimentacion.c...
+compiling rtx_evflags.c...
+compiling RTX_Config.c...
+compiling rtx_kernel.c...
+compiling rtx_memory.c...
+compiling rtx_msgqueue.c...
+compiling rtx_thread.c...
+compiling rtx_semaphore.c...
+compiling retarget_io.c...
+compiling os_systick.c...
+compiling rtx_mempool.c...
+compiling rtx_mutex.c...
+compiling rtx_system.c...
+compiling rtx_timer.c...
+compiling EventRecorder.c...
+compiling stm32f4xx_hal_dma.c...
+compiling I2C_STM32F4xx.c...
+compiling SPI_STM32F4xx.c...
+compiling stm32f4xx_hal_cortex.c...
+compiling stm32f4xx_hal.c...
+compiling stm32f4xx_hal_dma_ex.c...
+compiling USART_STM32F4xx.c...
+compiling stm32f4xx_hal_adc_ex.c...
+compiling stm32f4xx_hal_gpio.c...
+compiling stm32f4xx_hal_adc.c...
+compiling stm32f4xx_hal_i2c.c...
+compiling stm32f4xx_hal_tim_ex.c...
+compiling stm32f4xx_hal_i2c_ex.c...
+compiling stm32f4xx_hal_sram.c...
+compiling stm32f4xx_hal_pwr.c...
+compiling stm32f4xx_hal_tim.c...
+assembling startup_stm32f429xx.s...
+compiling stm32f4xx_hal_rtc.c...
+compiling stm32f4xx_hal_rtc_ex.c...
+compiling stm32f4xx_hal_rcc.c...
+compiling stm32f4xx_hal_pwr_ex.c...
+compiling stm32f4xx_hal_spi.c...
+compiling stm32f4xx_hal_rcc_ex.c...
+compiling system_stm32f4xx.c...
+compiling stm32f4xx_hal_usart.c...
+compiling stm32f4xx_ll_fmc.c...
+compiling stm32f4xx_hal_uart.c...
+linking...
+Program Size: Code=82664 RO-data=1164 RW-data=34472 ZI-data=3964  
+".\Debug\HTTP_Server.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -117,41 +210,41 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.5.0
 
    * Component: ARM::CMSIS:RTOS2:Keil RTX5:Source:5.5.3
+      Source file:   CMSIS\RTOS2\Source\os_systick.c
       Include file:  CMSIS\RTOS2\RTX\Include\rtx_os.h
-      Include file:  CMSIS\RTOS2\RTX\Config\RTX_Config.h
-      Source file:   CMSIS\RTOS2\RTX\Template\main.c
-      Source file:   CMSIS\RTOS2\RTX\Template\MemPool.c
-      Source file:   CMSIS\RTOS2\RTX\Template\Semaphore.c
-      Source file:   CMSIS\RTOS2\RTX\Template\Timer.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_thread.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_msgqueue.c
+      Source file:   CMSIS\RTOS2\RTX\Source\ARM\irq_armv7m.s
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_system.c
       Source file:   CMSIS\RTOS2\RTX\Config\RTX_Config.c
       Source file:   CMSIS\RTOS2\RTX\Source\rtx_semaphore.c
       Source file:   CMSIS\RTOS2\RTX\Template\Events.c
-      Source file:   CMSIS\RTOS2\RTX\Template\MsgQueue.c
-      Source file:   CMSIS\RTOS2\RTX\Template\svc_user.c
+      Source file:   CMSIS\RTOS2\RTX\Template\Mutex.c
       Source file:   CMSIS\RTOS2\RTX\Source\rtx_kernel.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_memory.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_msgqueue.c
-      Source file:   CMSIS\RTOS2\RTX\Template\Thread.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_thread.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_delay.c
+      Include file:  CMSIS\RTOS2\RTX\Config\RTX_Config.h
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_mutex.c
+      Source file:   CMSIS\RTOS2\RTX\Template\Timer.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_mempool.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_evflags.c
+      Source file:   CMSIS\RTOS2\RTX\Template\Semaphore.c
       Source file:   CMSIS\RTOS2\RTX\Source\rtx_evr.c
       Source file:   CMSIS\RTOS2\RTX\Source\rtx_lib.c
-      Source file:   CMSIS\RTOS2\RTX\Source\ARM\irq_armv7m.s
-      Source file:   CMSIS\RTOS2\RTX\Template\Mutex.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_delay.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_evflags.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_mutex.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_system.c
-      Source file:   CMSIS\RTOS2\RTX\Source\rtx_mempool.c
+      Source file:   CMSIS\RTOS2\RTX\Template\main.c
       Source file:   CMSIS\RTOS2\RTX\Source\rtx_timer.c
-      Source file:   CMSIS\RTOS2\Source\os_systick.c
+      Source file:   CMSIS\RTOS2\RTX\Template\Thread.c
+      Source file:   CMSIS\RTOS2\RTX\Template\MemPool.c
+      Source file:   CMSIS\RTOS2\RTX\Template\MsgQueue.c
+      Source file:   CMSIS\RTOS2\RTX\Template\svc_user.c
+      Source file:   CMSIS\RTOS2\RTX\Source\rtx_memory.c
 
    * Component: Keil.32F469IDISCOVERY::Board Support:LED:1.0.0
       Source file:   MDK\Boards\ST\32F469IDISCOVERY\Common\LED_32F469IDISCOVERY.c
 
    * Component: Keil.ARM Compiler::Compiler:Event Recorder:DAP:1.4.0
       Include file:  Include\EventRecorder.h
-      Source file:   Source\EventRecorder.c
       Include file:  Config\EventRecorderConf.h
+      Source file:   Source\EventRecorder.c
 
    * Component: Keil.ARM Compiler::Compiler:I/O:STDOUT:ITM:1.2.0
       Source file:   Source\retarget_io.c
@@ -166,19 +259,19 @@ Package Vendor: Keil
       Source file:   CMSIS\Driver\USART_STM32F4xx.c
 
    * Component: Keil::Device:STM32Cube Framework:Classic:1.7.9
-      Include file:  MDK\Templates_LL\Inc\main.h
-      Source file:   MDK\Templates_LL\Src\main.c
-      Source file:   MDK\Templates\Src\stm32f4xx_it.c
-      Include file:  MDK\Templates\Inc\stm32f4xx_hal_conf.h
       Source file:   MDK\Templates\Src\main.c
-      Source file:   MDK\Templates\Src\stm32f4xx_hal_msp.c
-      Include file:  MDK\Templates\Inc\stm32f4xx_it.h
+      Include file:  MDK\Templates_LL\Inc\main.h
       Include file:  MDK\Templates\Inc\main.h
+      Include file:  MDK\Templates\Inc\stm32f4xx_hal_conf.h
+      Source file:   MDK\Templates\Src\stm32f4xx_it.c
+      Include file:  MDK\Templates\Inc\stm32f4xx_it.h
       Include file:  CMSIS\Driver\Config\RTE_Device.h
+      Source file:   MDK\Templates_LL\Src\main.c
+      Source file:   MDK\Templates\Src\stm32f4xx_hal_msp.c
 
    * Component: Keil::Device:STM32Cube HAL:ADC:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:Common:1.7.9
       Include file:  Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h
@@ -188,8 +281,8 @@ Package Vendor: Keil
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c
 
    * Component: Keil::Device:STM32Cube HAL:DMA:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:GPIO:1.7.9
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c
@@ -199,8 +292,8 @@ Package Vendor: Keil
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:PWR:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:RCC:1.7.9
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c
@@ -218,8 +311,8 @@ Package Vendor: Keil
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sram.c
 
    * Component: Keil::Device:STM32Cube HAL:TIM:1.7.9
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c
 
    * Component: Keil::Device:STM32Cube HAL:UART:1.7.9
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c
@@ -228,12 +321,12 @@ Package Vendor: Keil
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_usart.c
 
    * Component: Keil::Device:Startup:2.6.3
-      Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
       Source file:   MDK\Device\Source\ARM\STM32F42xxx_43xxx_OPT.s
-      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f429xx.s
+      Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
       Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f429xx.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:56
 </pre>
 </body>
 </html>

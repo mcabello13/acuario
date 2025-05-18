@@ -463,16 +463,6 @@
               <FileType>5</FileType>
               <FilePath>.\bluetooth.h</FilePath>
             </File>
-            <File>
-              <FileName>bomba.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\bomba.c</FilePath>
-            </File>
-            <File>
-              <FileName>bomba.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\bomba.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

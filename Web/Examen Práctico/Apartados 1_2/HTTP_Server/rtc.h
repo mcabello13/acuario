@@ -21,6 +21,4 @@ extern RTC_TimeTypeDef stimestructure;
 extern RTC_HandleTypeDef RtcHandle;
 extern void RTC_setTime(void);
 
-extern void SleepMode(void);
-
 #endif

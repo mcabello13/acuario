@@ -7,12 +7,9 @@
   * @brief config the use of analog inputs ADC123_IN10 and ADC123_IN13 and enable ADC1 clock
   * @param None
   * @retval None
-  */
-  
-float temperatura = 0; 
-    
-    
-void ADC1_pins_F429ZI_config_temperatura(void){
+  */   
+void ADC1_pins_F429ZI_config_temperatura(void)
+{
 	
 	GPIO_InitTypeDef GPIO_InitStruct = {0};
 		
@@ -64,7 +61,7 @@ int ADC_Init_Single_Conversion(ADC_HandleTypeDef *hadc, ADC_TypeDef  *ADC_Instan
 	* @retval voltage in float (resolution 12 bits and VRFE 3.3
   */
 float ADC_getVoltage(ADC_HandleTypeDef *hadc, uint32_t Channel)
-	{
+{
 		ADC_ChannelConfTypeDef sConfig = {0};
 		HAL_StatusTypeDef status;
 
@@ -92,35 +89,3 @@ float ADC_getVoltage(ADC_HandleTypeDef *hadc, uint32_t Channel)
 		
 		return voltage;
 }
-	
-/* FIN Funciones para configruar el ADC */
-
-/* Hilo encargado del funcionamineto del sneosr de temperatura */
- 
-osThreadId_t th_temp_sensor;                        // thread id
- 
-int Init_Thread_temp (void) {
- 
-  th_temp_sensor = osThreadNew(Thread_temp, NULL, NULL);
-  if (th_temp_sensor == NULL) {
-    return(-1);
-  }
- 
-  return(0);
-}
- 
-void Thread_temp (void *argument) {
-	
-  ADC_HandleTypeDef adchandle; //Handler definition
-	ADC1_pins_F429ZI_config_temperatura(); //Specific PINS configuration	
-	ADC_Init_Single_Conversion(&adchandle , ADC3); //ADC3 configuration
-	
-	temperatura = 0; 
-
-  while (1) {
-		temperatura = ADC_getVoltage(&adchandle, 9);
-		osDelay(700); 
-  }
-}
-
-/* FIN Hilo encargado del funcionamineto del sneosr de temperatura */

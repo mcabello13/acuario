@@ -47,6 +47,15 @@
 #include "temperatura.h"
 #include "alimentacion.h"
 
+//Funciones:
+void Init_Thread_luz(void);
+void Init_Thread_turbidez(void);
+void Configurar_pin_bomba(void);
+void Init_Thread_Bomba();
+void Init_Thread_slave();
+
+
+
 
 #ifdef RTE_CMSIS_RTOS2_RTX5
 /**
@@ -78,9 +87,6 @@ uint32_t HAL_GetTick (void) {
 /** @addtogroup Templates
   * @{
   */
-
-
-static GPIO_InitTypeDef GPIO_InitStruct;
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -125,7 +131,6 @@ int main(void)
 	GPIO_InitStruct.Pull = GPIO_PULLDOWN;
 	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);*/
 	
-	
 	//LED_Init();
 	//LED_Initialize_stm();
 	initI2C();
@@ -133,18 +138,15 @@ int main(void)
 	ADC1_pins_F429ZI_config();
 	Init_Thread_luz();
 	Init_Thread_turbidez();
+	Configurar_pin_bomba();
+	Init_Thread_Bomba();
 	Init_Thread_alim_pez();
+	Init_Thread_pH();
   Init_Thread_temp ();
-	creacion_hilos();
 	initUart();
-	//Init_Thread_master();
 	Init_Thread_slave();
-	/*Init_Thread_lcd();
-	Init_Thread_sntp();*/
-	
 	
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-	
 	
   /* Create application main thread */
   osThreadNew(app_main, NULL, &app_main_attr);

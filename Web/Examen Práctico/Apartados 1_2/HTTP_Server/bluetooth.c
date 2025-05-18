@@ -3,22 +3,33 @@
 #include "main.h"
 #include <Driver_USART.h>
 #include "stm32f4xx_hal.h"
+#include <string.h>
+#include <stdlib.h>
+
 
 //Hilos:
 osThreadId_t tid_ThreadSlave; 
 void Thread_slave (void *argument);  
 
 //Variables:
+UART_HandleTypeDef huart3;
 char rx = 0;
 char identificador = 0;
-char rxBuffer[20] = {0};
+char rxBuffer[50] = {0};
+char cadenaDatosWeb[50] = {0};
+char cadena = {0};
 int p = 0;
 extern bool limpiezaActiva;
 extern bool alimentacion;
 extern bool bomba;
+char* numero;
+float datosLuzWeb = 0;
+float datospHWeb = 0;
+float datosTurbidezWeb = 0;
+float datosTemperaturaWeb = 0;
+float datosConsumoTensionWeb = 0;
+float datosConsumoCorrienteWeb = 0;
 
-
-UART_HandleTypeDef huart3;
 
 
 //Funcion que configura la UART 3:
@@ -53,10 +64,64 @@ void initUart(void)
     }
 }
 
+//Función que particiona la cadena de datos recibida para representarlos en la Web:
+void enviarDatosWeb(char cadenaDatosWeb[50])
+{	
+	numero = strtok(&cadenaDatosWeb[1], "W"); //Se empieza desde el segundo carácter para evitar el flag "A".
+	datosLuzWeb = atof(numero);
+
+	numero = strtok(NULL, "W");
+	datospHWeb = atof(numero);
+
+	numero = strtok(NULL, "W");
+	datosTemperaturaWeb = atof(numero);
+	
+	numero = strtok(NULL, "W");
+	datosTurbidezWeb = atof(numero);
+	
+	numero = strtok(NULL, "W");
+	datosConsumoTensionWeb = atof(numero);
+	
+	numero = strtok(NULL, "W");
+	datosConsumoCorrienteWeb = atof(numero);
+}
+
 //Función que realiza el envío del Esclavo al Maestro:
 void send(UART_HandleTypeDef *huart, char *cmd) 
 {	
     HAL_UART_Transmit(huart, cmd, 1, 100);
+}
+
+//Función para recibir comandos por parte del esclavo desde el master:
+void receiveResponse(UART_HandleTypeDef *huart) 
+{	  	
+		HAL_UART_Receive(huart, &rx, 1, 500);		
+	
+		if(rx == 'A')
+		{
+			p = 0;
+			
+			for(p=0; p<50; p++)
+			{			
+				HAL_UART_Receive(huart, &rx, 1, 500);			
+				
+				if(rx != '\n')
+				{
+					rxBuffer[p] = rx;			
+				}
+				else if(rx == '\n')
+				{
+					strcpy(cadenaDatosWeb, rxBuffer);
+					enviarDatosWeb(cadenaDatosWeb);
+					rxBuffer[p] = '\0';
+					osDelay(100);
+					p = 0;
+					memset(rxBuffer, 0, sizeof(rxBuffer));
+					break;
+				}				
+				osDelay(100);
+			}
+		}
 }
 
 //Función que inicializa el hilo para controlar el Esclavo bluetooth:
@@ -70,36 +135,6 @@ int Init_Thread_slave (void)
   }
  
   return(0);
-}
-
-//Función para recibir comandos por parte del esclavo desde el master:
-void receiveResponse(UART_HandleTypeDef *huart) 
-{	  	
-		HAL_UART_Receive(huart, &rx, 1, 500);		
-	
-		if(rx == 'A')
-		{
-			p = 0;
-			
-			for(p=0; p<20; p++)
-			{			
-				HAL_UART_Receive(huart, &rx, 1, 500);			
-				
-				if(rx != '\n')
-				{
-					rxBuffer[p] = rx;			
-				}
-				else if(rx == '\n')
-				{
-					rxBuffer[p] = '\0';
-					osDelay(100);
-					p = 0;
-					memset(rxBuffer, 0, sizeof(rxBuffer));
-					break;
-				}				
-				osDelay(100);
-			}
-		}
 }
 
 //Hilo que gestiona la recepción de datos por parte del Esclavo Bluetooth:
@@ -124,8 +159,15 @@ void Thread_slave (void *argument)
 				identificador = 'B';
 				send(&huart3, &identificador);
 			}
+			limpiezaActiva = 0;			
 			identificador = 0;			
 			osDelay(100);
+		}
+		else if(limpiezaActiva == 0 && alimentacion == 0 && bomba == 0)
+		{
+			identificador = 'O';
+			send(&huart3, &identificador);	
+			receiveResponse(&huart3);
 		}
 		else
 		{

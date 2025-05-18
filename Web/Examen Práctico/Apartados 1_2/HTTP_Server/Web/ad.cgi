@@ -30,6 +30,19 @@ t voltsVal = (1000*3.3*numVal)/4096;
 t tableSize = (numVal*100/3);
 t document.getElementById("ad_table").style.width = (tableSize + '%');
 t document.getElementById("ad_volts").value = (voltsVal.toFixed(3) + ' V');
+t    const alertBox = document.getElementById("alertBox");
+t    const alertVolts = document.getElementById("alertVolts");
+t
+t    if (voltsVal > 0) {
+t        alertVolts.textContent = voltsVal.toFixed(3);
+t        alertBox.style.display = "block";
+t
+t    	setTimeout(() => {
+t        	alertBox.style.display = "none";
+t    	}, 3000);
+t    } else {
+t        alertBox.style.display = "none";
+t    }
 t }
 t function periodicUpdateAd() {
 t if(document.getElementById("adChkBox").checked == true) {
@@ -68,11 +81,17 @@ t </font></table>
 t <p align=center>
 t <input type=button value="Refresh" onclick="updateMultiple(formUpdate,plotADGraph)">
 t Medida Periodica:<input type="checkbox" id="adChkBox" onclick="periodicUpdateAd()">
-t <p><font size="5">ATENCION: 
-t En la barra deslizante puede observarse el nivel de turbidez del agua del acuario,  
-t si el nivel alcanzado es demasiado alto, se recomienda activar el modo limpieza pulsando
-t en el checkbox Limpiar. 
-t Si desea alimentar a los peces, pulse el checkbox Alimentacion para abrir la trampilla. 
-t Si desea activar la Bomba de Agua, pulse el checkbox Activar Bomba de Agua.</font></p>
-t </p></form>
+t <div class="info-box">
+t  <p><strong>ATENCION</strong><br>
+t    En la barra deslizante puede observarse el nivel de turbidez del agua del acuario. 
+t    Si el nivel alcanzado es demasiado alto, 
+t    se recomienda activar el modo limpieza pulsando en el checkbox "Limpiar".<br><br>
+t    Si desea alimentar a los peces, pulse el checkbox "Alimentacion" para abrir la trampilla.<br><br>
+t    Si desea activar la Bomba de Agua, pulse el checkbox "Activar Bomba de Agua".
+t  </p>
+t </div></form>
+t <div id="alertBox" style="display: none;" class="custom-alert">
+t  <strong>Atencion</strong> , el agua tiene demasiada turbidez.<br>
+t  Valor actual: <span id="alertVolts">0.000</span> 
+t </div>
 . End of script must be closed with period

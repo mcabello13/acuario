@@ -50,3 +50,6 @@
 .\debug\principal.o: turbidez.h
 .\debug\principal.o: luz.h
 .\debug\principal.o: ph.h
+.\debug\principal.o: temperatura.h
+.\debug\principal.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\debug\principal.o: consumo.h

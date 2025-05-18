@@ -7,5 +7,13 @@
 int Init_Thread_alim_pez (void);
 void function_th_alim_pez (void *argument);
 void init_Digital_PIN_Out(void);
+void Step1(void);
+void Step2(void);
+void Step3(void);
+void Step4(void);
+void Step5(void);
+void Step6(void);
+void Step7(void);
+void Step8(void); 
 
 #endif

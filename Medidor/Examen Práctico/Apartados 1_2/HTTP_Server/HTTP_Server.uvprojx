@@ -488,6 +488,16 @@
               <FileType>5</FileType>
               <FilePath>.\bomba.h</FilePath>
             </File>
+            <File>
+              <FileName>consumo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\consumo.c</FilePath>
+            </File>
+            <File>
+              <FileName>consumo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\consumo.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

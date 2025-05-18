@@ -29,21 +29,23 @@
 
 extern bool LEDrun;
 extern char lcd_text[2][20+1];
-extern osThreadId_t TID_Display;
 extern bool limpiezaActiva;
 bool alimentacion = 0;
-extern bool bomba;
-osTimerId_t tim_id_s;
-static uint32_t exec;               
+extern bool bomba;              
 
 // Local variables.
 static uint8_t P2;
 
 //Variables:
+float datosRandom;
 extern char cadenaReloj [20+1];
 extern char cadenaFecha [20+1];
-extern float datosRandom;
-extern float datosRandomTurbidez;
+extern float datosLuzWeb;
+extern float datospHWeb;
+extern float datosTurbidezWeb;
+extern float datosTemperaturaWeb;
+extern float datosConsumoTensionWeb;
+extern float datosConsumoCorrienteWeb;
 
 static uint8_t ip_addr[NET_ADDR_IP6_LEN];
 static char    ip_string[40];
@@ -54,27 +56,6 @@ typedef struct {
   uint8_t unused[3];
 } MY_BUF;
 #define MYBUF(p)        ((MY_BUF *)p)
-
-//Timer "One Shot" para el entrar en Modo Bajo Consumo:
-//---------------------------------------------------------------------------------------
-static void Timer_Callback (void const *arg) 
-{
-
-	if(limpiezaActiva == 1)
-	{
-		SleepMode();
-		limpiezaActiva = 0;
-	}
-}
-
-int Init_Timer (void) 
-{
-  // Create one-shoot timer
-  exec = 1U;
-  tim_id_s = osTimerNew((osTimerFunc_t)&Timer_Callback, osTimerPeriodic, &exec, NULL);
-  return NULL;
-}
-//---------------------------------------------------------------------------------------
 
 // Process query string received by GET request.
 void netCGI_ProcessQuery (const char *qstr) {
@@ -171,10 +152,7 @@ void netCGI_ProcessData (uint8_t code, const char *data, uint32_t len) {
 			{
 				if(limpiezaActiva == 0)
 				{
-					limpiezaActiva = 1;
-					
-					Init_Timer();
-					osTimerStart(tim_id_s, 6000);										
+					limpiezaActiva = 1;						
 				}
 				else
 				{
@@ -222,12 +200,12 @@ void netCGI_ProcessData (uint8_t code, const char *data, uint32_t len) {
       else if (strncmp (var, "lcd1=", 5) == 0) {
         // LCD Module line 1 text
         strcpy (lcd_text[0], var+5);
-        osThreadFlagsSet (TID_Display, 0x01U); 
+        //osThreadFlagsSet (TID_Display, 0x01U); 
       }
       else if (strncmp (var, "lcd2=", 5) == 0) {
         // LCD Module line 2 text
         strcpy (lcd_text[1], var+5);
-        osThreadFlagsSet (TID_Display, 0x01U);
+        //osThreadFlagsSet (TID_Display, 0x01U);
       }
     }
   } while (data);
@@ -408,7 +386,7 @@ uint32_t netCGI_Script (const char *env, char *buf, uint32_t buflen, uint32_t *p
       // AD Input from 'ad.cgi'
       switch (env[2]) {
         case '1':
-          adv = datosRandomTurbidez;
+          adv = datosTurbidezWeb;
           len = (uint32_t)sprintf (buf, &env[4], adv);
           break;
         case '2':
@@ -425,13 +403,13 @@ uint32_t netCGI_Script (const char *env, char *buf, uint32_t buflen, uint32_t *p
       
       switch (env[2]) {
         case '1':
-          len = sprintf (buf, &env[4], datosRandom);
+          len = sprintf (buf, &env[4], datosLuzWeb);
           break;
 				case '2':
-          len = sprintf (buf, &env[4], datosRandom);
+          len = sprintf (buf, &env[4], datospHWeb);
           break;
 				case '3':
-          len = sprintf (buf, &env[4], datosRandom);
+          len = sprintf (buf, &env[4], datosTemperaturaWeb);
           break;
 				case '4':
           len = sprintf (buf, &env[4], cadenaReloj);
@@ -448,13 +426,13 @@ uint32_t netCGI_Script (const char *env, char *buf, uint32_t buflen, uint32_t *p
 			{				
 				case '1':
 					
-					len = sprintf(buf, &env[4], datosRandom);
+					len = sprintf(buf, &env[4], datosConsumoTensionWeb);
 																									
 					break;
 				
 				case '2':
 					
-					len = sprintf(buf, &env[4], datosRandom);
+					len = sprintf(buf, &env[4], datosConsumoCorrienteWeb);
 																									
 					break;				
 				
@@ -485,7 +463,7 @@ uint32_t netCGI_Script (const char *env, char *buf, uint32_t buflen, uint32_t *p
 		
     case 'x':
       // AD Input from 'ad.cgx'
-      adv = datosRandomTurbidez;
+      adv = datosTurbidezWeb;
       len = (uint32_t)sprintf (buf, &env[1], adv);
 		
       break;

@@ -13,32 +13,9 @@ float calcular_pH(float voltage_mV);
 float voltageAgua = 0.0f;
 float phAgua = 0;
 
-//void pH_Thread(void *argument) {
-//    char comando = 'R';
-//    uint8_t buffer[PH_RX_LEN];
-
-//    while (1) {
-//        // 1. Enviar comando 'R' para solicitar lectura de pH
-//        if (HAL_I2C_Master_Transmit(&hi2c1, PH_SENSOR_I2C_ADDR, (uint8_t *)&comando, 1, HAL_MAX_DELAY) != HAL_OK) {
-//            printf("***** I2C ERROR (Transmisión) *****\n");
-//            osDelay(2000);
-//            continue;
-//        }
-
-//        // 2. Esperar a que el sensor prepare la respuesta (1000ms recomendado)
-//        osDelay(1000);
-
-//        // 3. Leer la respuesta
-//        memset(buffer, 0, PH_RX_LEN);
-//        if (HAL_I2C_Master_Receive(&hi2c1, PH_SENSOR_I2C_ADDR, buffer, PH_RX_LEN, HAL_MAX_DELAY) != HAL_OK) {
-//            printf("***** I2C ERROR (Recepción) *****\n");
-//        } else {
-//            printf("Lectura de pH: %s\n", buffer);
-//        }
-
-//        osDelay(2000);  // Tiempo entre lecturas
-//    }
-//}
+//Hilos:
+osThreadId_t tid_Thread_pH;
+void Thread_pH(void);
 
 //Función que inicializa el I2C:
 void MX_I2C2_Init(void)
@@ -120,26 +97,32 @@ void mostrar_pH_y_voltaje(float voltage_mV)
     //printf("Voltaje PH: %.2f mV | pH: %.2f\n", voltage_mV * 1000.0f, ph);
 }
 
+int Init_Thread_pH (void) 
+{
+  tid_Thread_pH = osThreadNew(Thread_pH, NULL, NULL);
+	
+  if (tid_Thread_pH == NULL) 
+	{
+    return(-1);
+  }
+ 
+  return(0);
+}
+
 //Función que realiza las lecturas del Sensor de pH:
-void pH_Sensor_Read(void) 
+void Thread_pH(void) 
 {
     uint8_t rx[3];
     int32_t adc_code = 0;
 
     while (1) 
 		{
-        if (HAL_I2C_Master_Receive(&hi2c2, PH_SENSOR_I2C_ADDR, rx, 3, HAL_MAX_DELAY) == HAL_OK) 
-				{
-            adc_code = convert_24bit_to_int32(rx[2], rx[1], rx[0]);  // LSB first!
-            voltageAgua = adc_code_to_voltage(adc_code, ADC_VREF);
-					  mostrar_pH_y_voltaje(voltageAgua);
-             //float ph = calcular_pH_calibrado(voltage, offset_mV, slope_mV_per_pH);
-            //printf("%ld BNC Input Voltage: %.2f mV\n", adc_code, voltageAgua * 1000.0f);
-        } 
-				else 
-				{
-            //printf("***** I2C ERROR (Lectura) *****\n");
-        }				
+        HAL_I2C_Master_Receive(&hi2c2, PH_SENSOR_I2C_ADDR, rx, 3, 500);
+
+				adc_code = convert_24bit_to_int32(rx[2], rx[1], rx[0]);  // LSB first!
+				voltageAgua = adc_code_to_voltage(adc_code, ADC_VREF);
+				mostrar_pH_y_voltaje(voltageAgua);
+			
         osDelay(1000);
     }
 }

@@ -10,6 +10,8 @@
 #include "turbidez.h"
 #include "luz.h"
 #include "ph.h"
+#include "temperatura.h"
+#include "consumo.h"
 
 // Main stack size must be multiple of 8 Bytes
 #define APP_MAIN_STK_SZ (1024U)
@@ -22,12 +24,13 @@ const osThreadAttr_t app_main_attr = {
 //Identificadores de Hilos:
 osThreadId_t TID_turbidez;
 osThreadId_t TID_luz;
-
 extern osThreadId_t TID_turbidez;
 extern osThreadId_t TID_luz;
 osThreadId_t th_alim_pez;
+osThreadId_t tid_Thread_Bomba;
+osThreadId_t th_temp_sensor; 
+osThreadId_t th_consumo; 
 
-static GPIO_InitTypeDef GPIO_InitStruct;
 
 //Variables:
 bool LEDrun;
@@ -36,7 +39,12 @@ ADC_HandleTypeDef adchandle;
 float value = 0;
 float datosSensorLuz = 0;
 float datosSensorTurbidez = 0;
+float temperatura = 0; 
+float consumoTension = 0;
+float consumoCorriente = 0;
 bool alimentacion = 0;
+bool bomba = 1;
+bool limpiezaActiva = 0;
 
 
 //Funciones:
@@ -44,7 +52,17 @@ __NO_RETURN void app_main (void *arg);
 void Thread_turbidez(void *argument);
 void Thread_luz(void *argument);
 void function_th_alim_pez (void *argument); 
+void Step1(void);
+void Step2(void);
+void Step3(void);
+void Step4(void);
+void Step5(void);
+void Step6(void);
+void Step7(void);
+void Step8(void); 
+void Thread_Bomba(void);
 void Thread_master(void *argument);
+void Thread_consumo (void *argument); 
 void creacion_hilos(void);
 
 
@@ -81,8 +99,47 @@ int Init_Thread_luz (void)
 int Init_Thread_alim_pez (void) 
 {  
 	init_Digital_PIN_Out();
+	
   th_alim_pez = osThreadNew(function_th_alim_pez, NULL, NULL);
+	
   if (th_alim_pez == NULL) {
+    return(-1);
+  }
+ 
+  return(0);
+}
+
+//Función de inicialización del hilo encargado de la Bomba de Agua:
+int Init_Thread_Bomba (void) 
+{  
+	tid_Thread_Bomba = osThreadNew(Thread_Bomba, NULL, NULL);
+	
+  if (tid_Thread_Bomba == NULL) 
+	{
+    return(-1);
+  }
+ 
+  return(0);
+}
+
+//Función de inicialización del hilo encargado de la temperatura del acuario: 
+int Init_Thread_temp (void) 
+{
+ 
+  th_temp_sensor = osThreadNew(Thread_temp, NULL, NULL);
+  if (th_temp_sensor == NULL) {
+    return(-1);
+  }
+ 
+  return(0);
+}
+
+//Función de inicialización del hilo encargado de la medición del consumo: 
+int Init_Thread_consumo (void) 
+{
+ 
+  th_consumo = osThreadNew(Thread_consumo, NULL, NULL);
+  if (th_consumo == NULL) {
     return(-1);
   }
  
@@ -158,11 +215,45 @@ void function_th_alim_pez (void *argument)
   }
 }
 
-//Funcion para crear los hilos utilizados:
-void creacion_hilos(void)
+//Hilo que controla la Bomba de Agua (Simulada con un Ventilador):
+void Thread_Bomba(void)
 {
-	TID_turbidez = osThreadNew (Thread_turbidez,  NULL, NULL);
-	TID_luz = osThreadNew (Thread_luz,  NULL, NULL);
+    while (1)
+    {
+			//printf("Bomba ON\n");
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_SET);		
+    }
+}
+
+//Hilo que gestiona la lectura de la temperatura:
+void Thread_temp (void *argument) 
+{
+	
+  ADC_HandleTypeDef adchandle; 
+	ADC1_pins_F429ZI_config_temperatura();
+	ADC_Init_Single_Conversion(&adchandle , ADC3);
+	
+	temperatura = 0; 
+
+  while (1) {
+		temperatura = ADC_getVoltage(&adchandle, 9);
+		osDelay(700); 
+  }
+}
+
+//Hilo que gestiona la lectura del consumo:
+void Thread_consumo (void *argument) 
+{
+	
+  ADC_HandleTypeDef adchandle; 
+	ADC1_pins_F429ZI_config_consumo();
+	ADC_Init_Single_Conversion_consumo(&adchandle , ADC3);
+	
+  while (1) {
+		consumoTension = ADC_getVoltage_consumo(&adchandle, 15);
+		consumoCorriente = consumoTension / 0.321; //Para obtener la corriente se divide entre "Rshunt" utilizada.
+		osDelay(500); 
+  }
 }
 
 __NO_RETURN void app_main (void *arg) 

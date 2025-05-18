@@ -25,17 +25,13 @@ const osThreadAttr_t app_main_attr = {
 
 //Declaraciones de los hilos:
 static void BlinkLed (void *arg);
-static void Display  (void *arg);
 
 //Identificadores de los Hilos:
-//extern osThreadId_t TID_Display;
 extern osThreadId_t TID_Led;
 extern osThreadId_t TID_RTC; 
-osThreadId_t TID_Display;
 osThreadId_t TID_Led;
 osThreadId_t TID_RTC;
 osThreadId_t tid_ThreadModoBajoConsumo;
-osThreadId_t tid_Threadrandom; 
 osThreadId_t tid_Thread_Bomba;
 
 
@@ -43,8 +39,6 @@ static GPIO_InitTypeDef GPIO_InitStruct;
 
 
 //Variables:
-float datosRandom = 0;
-float datosRandomTurbidez = 0;
 bool LEDrun;
 bool limpiezaActiva = 0;
 bool bomba = 0;
@@ -58,41 +52,12 @@ uint8_t tempo = 0x0A;
 
 //Declaración de Funciones:
 __NO_RETURN void app_main (void *arg);
-void Thread_random (void *argument); 
 void Thread_Bomba(void);
 
 
 /* IP address change notification */
 void netDHCP_Notify (uint32_t if_num, uint8_t option, const uint8_t *val, uint32_t len) {
 
-  /*(void)if_num;
-  (void)val;
-  (void)len;
-
-  if (option == NET_DHCP_OPTION_IP_ADDRESS) {
-    //IP address change, trigger LCD update 
-    osThreadFlagsSet (TID_Display, 0x01);
-  }*/
-}
-
-/*----------------------------------------------------------------------------
-  LCD display handler
- *---------------------------------------------------------------------------*/
-/***************************************************************************************************
-* EXPLICACION: en esta funcion se realiza la representacion de los textos escritos en la web. Es   *
-* importante destacar que la inicializacion y el reset del LCD se realiza en esta funcion y no     *
-* en el main del servidor o en el main del microprocesador (si se hace esto, se bloquea). Se       *
-* utiliza la señal 0x01U proporcionada por el proyecto base, que cada vez que se introduce un      *
-* texto desde la web, se envia desde el cgi hasta esta funcion, que actualizara el LCD.            *
-****************************************************************************************************/
-
-//Funcion que realiza las representaciones en el LCD:
-static __NO_RETURN void Display (void *arg) 
-{
-  while(1) 
-	{
-	
-  }
 }
 
 /*----------------------------------------------------------------------------
@@ -165,135 +130,12 @@ void LED_Init(void)
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);	
 }	
 
-
-
-//Función de inicialización del hilo encargado de la Bomba de Agua:
-int Init_Thread_Bomba (void) 
-{  
-	tid_Thread_Bomba = osThreadNew(Thread_Bomba, NULL, NULL);
-	
-  if (tid_Thread_Bomba == NULL) 
-	{
-    return(-1);
-  }
- 
-  return(0);
-}
-
-//Hilo que controla la Bomba de Agua:
-void Thread_Bomba(void)
-{
-    while (1)
-    {
-			if(bomba == 0)
-			{
-				printf("Bomba OFF\n");
-				
-				//Apagar la bomba 
-				HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_SET);
-				osDelay(5000); //Encendida 5 segundos
-			}
-			else if(bomba == 1)
-			{
-				printf("Bomba ON\n");
-			
-				// Encender la bomba  (relé inactivo)
-				HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_RESET);
-				osDelay(5000); //Apagada 5 segundos
-			}
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***************************************************************************
-HILO PARA SIMULAR VALORES RANDOM DE LUZ Y PH HASTA NO TENER EL BLUETOOTH
-****************************************************************************/
-int Init_Thread_random (void) 
-{
-  tid_Threadrandom = osThreadNew(Thread_random, NULL, NULL);
-	
-  if (tid_Threadrandom == NULL) 
-	{
-    return(-1);
-  }
- 
-  return(0);
-}
-void Thread_random (void *argument) 
-{ 	
-	while(1)
-	{
-			datosRandom = (datosRandom * 3.01f + 1.01f);  // Constantes arbitrarias
-			//datosRandom = (datosRandom*100)/619.01;    
-		
-			//datosRandomTurbidez = (datosRandomTurbidez * 2.01f + 1.01f);
-
-			while (datosRandom > 100.00f)
-			{
-					datosRandom -= 100.00f;  //Mantener dentro del rango [0,100)
-			}			
-			/*while (datosRandomTurbidez > 3.3f)
-			{            
-					datosRandomTurbidez -= 3.3f;  //Mantener dentro del rango [0 ; 3.3)
-			}*/
-			
-			// Truncar a 2 decimales
-			datosRandom = (int)(datosRandom * 100) / 100.0f;
-			
-			osDelay(6000);
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*----------------------------------------------------------------------------
   Main Thread 'main': Run Network
  *---------------------------------------------------------------------------*/
 __NO_RETURN void app_main (void *arg) 
 {
 	(void)arg;
-
-	
-	
-	Init_Thread_random();
-	
-	
-	
-	
 
 	LED_Init();
 	//LED_Initialize_stm();
@@ -303,12 +145,9 @@ __NO_RETURN void app_main (void *arg)
 	
 	Init_Thread_sntp();	
 	//init_Digital_PIN_Out();
-	Configurar_pin_bomba();
-	Init_Thread_Bomba();
 	Init_Thread_slave();
 	
   TID_Led     = osThreadNew (BlinkLed, NULL, NULL);
-  //TID_Display = osThreadNew (Display,  NULL, NULL);
 	
   osThreadExit();
 }

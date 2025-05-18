@@ -17,7 +17,6 @@ char cadenaReloj [20+1];
 char cadenaFecha [20+1];
 int c=0;
 int dia, mes, ano, horas, minutos, segundos;
-TIM_HandleTypeDef TimHandle;
 
 
 //Funcion que inicializa el RTC:
@@ -184,46 +183,4 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
   //##-3- Enable RTC peripheral Clocks #######################################/
   /* Enable RTC Clock */
   __HAL_RCC_RTC_ENABLE();
-}
-
-/***************************************************************************************
- * EXPLICACION: para que el sistema entre en Modo Sleep, se apaga el Systick porque es *
- * el reloj del sistema.																															 *
- ***************************************************************************************/
-
-void TIM6_delay(void)
-{		
-    // 1. Habilitar reloj de TIM 6
-    __HAL_RCC_TIM6_CLK_ENABLE();
-
-    // 2. Configurar TIM 6 para contar milisegundos
-    TimHandle.Instance = TIM6;
-    TimHandle.Init.Prescaler = (SystemCoreClock / 1000) - 1; //1 ms por cuenta
-    TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
-    TimHandle.Init.Period = 0xFFFF; //Máximo valor (65535 ms ~ 65 s)
-    TimHandle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-    TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-
-    HAL_TIM_Base_Init(&TimHandle);
-    HAL_TIM_Base_Start(&TimHandle);
-
-    // 3. Hacer el retardo de 5000 ms
-    TIM6->CNT = 0;
-    while (TIM6->CNT < 5000);
-}
-
-//Funcion para el Modo Sleep:
-void SleepMode(void)
-{
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET); //LED Rojo ON.
-	
-  HAL_SuspendTick(); //...y una vez configurado, se suspende el reloj del sistema.
-  HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
-	
-	TIM6_delay(); //Timer para simular el retardo de la Limpieza del Acuario.
-	
-	HAL_ResumeTick(); //Se levanta el sistema.
-	
-	HAL_TIM_Base_Stop(&TimHandle); //Se para el Timer 6.
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET); //LED Rojo OFF.
 }

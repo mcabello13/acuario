@@ -10,6 +10,7 @@
 ".\debug\temperatura.o"
 ".\debug\alimentacion.o"
 ".\debug\bomba.o"
+".\debug\consumo.o"
 ".\debug\led_32f469idiscovery.o"
 ".\debug\irq_armv7m.o"
 ".\debug\rtx_delay.o"
