@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Debug\HTTP_Server.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Debug\HTTP_Server.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sun May 18 16:59:14 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed May 28 18:50:13 2025
 <BR><P>
 <H3>Maximum Stack Usage =        320 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -615,8 +615,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;http_listener
 </UL>
 
-<P><STRONG><a name="[12d]"></a>netCGI_ProcessData</STRONG> (Thumb, 374 bytes, Stack size 88 bytes, http_server_cgi.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
+<P><STRONG><a name="[12d]"></a>netCGI_ProcessData</STRONG> (Thumb, 298 bytes, Stack size 80 bytes, http_server_cgi.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
@@ -631,7 +631,7 @@ Global Symbols
 <LI><a href="#[3e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;http_kill_session
 </UL>
 
-<P><STRONG><a name="[133]"></a>netCGI_Script</STRONG> (Thumb, 1270 bytes, Stack size 72 bytes, http_server_cgi.o(.text))
+<P><STRONG><a name="[133]"></a>netCGI_Script</STRONG> (Thumb, 1254 bytes, Stack size 72 bytes, http_server_cgi.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = netCGI_Script &rArr; netIF_GetOption &rArr; net_sys_unlock &rArr; netos_unlock &rArr; osMutexRelease &rArr; EvrRtxMutexRelease &rArr; EventRecord2 &rArr; EventRecordItem
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strncmp
@@ -867,12 +867,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_slave
 </UL>
 
-<P><STRONG><a name="[167]"></a>Thread_slave</STRONG> (Thumb, 124 bytes, Stack size 0 bytes, bluetooth.o(.text))
+<P><STRONG><a name="[167]"></a>Thread_slave</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, bluetooth.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = Thread_slave &rArr; receiveResponse &rArr; enviarDatosWeb &rArr; atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real
 </UL>
 <BR>[Calls]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receiveResponse
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bluetooth.o(.text)
 </UL>
@@ -910,8 +909,7 @@ Global Symbols
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsIrqMasked
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsException
 </UL>
-<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread_slave
-<LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receiveResponse
+<BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receiveResponse
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Callback
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_getTime_Date
 <LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_Alarm_IRQHandler
@@ -9331,7 +9329,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[3e3]"></a>http_kill_session</STRONG> (Thumb, 94 bytes, Stack size 16 bytes, net_http_server.o(i.http_kill_session))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = http_kill_session &rArr; netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = http_kill_session &rArr; netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;net_mem_free
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netCGI_ProcessData
@@ -9342,7 +9340,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[cc]"></a>http_listener</STRONG> (Thumb, 642 bytes, Stack size 40 bytes, net_http_server.o(i.http_listener))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = http_listener &rArr; http_proc_post &rArr; netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
+<BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = http_listener &rArr; http_proc_post &rArr; netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netHTTPs_AcceptClient
 <LI><a href="#[3b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;net_strcmp
@@ -9391,7 +9389,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[3eb]"></a>http_proc_multipart</STRONG> (Thumb, 378 bytes, Stack size 24 bytes, net_http_server.o(i.http_proc_multipart))
-<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = http_proc_multipart &rArr; netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = http_proc_multipart &rArr; netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;net_strnchr
 <LI><a href="#[3b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;net_strcmp
@@ -9407,7 +9405,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[3e9]"></a>http_proc_post</STRONG> (Thumb, 298 bytes, Stack size 24 bytes, net_http_server.o(i.http_proc_post))
-<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = http_proc_post &rArr; netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = http_proc_post &rArr; netCGI_ProcessData &rArr; netHTTPs_SetPassword &rArr; EventRecordData &rArr; EventRecordItem
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;net_mem_free
 <LI><a href="#[3b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;net_mem_alloc

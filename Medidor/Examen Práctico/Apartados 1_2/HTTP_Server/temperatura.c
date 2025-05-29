@@ -64,7 +64,7 @@ float ADC_getVoltage(ADC_HandleTypeDef *hadc, uint32_t Channel)
 {
 		ADC_ChannelConfTypeDef sConfig = {0};
 		HAL_StatusTypeDef status;
-
+    
 		uint32_t raw = 0;
 		float voltage = 0;
 		 /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
@@ -76,7 +76,7 @@ float ADC_getVoltage(ADC_HandleTypeDef *hadc, uint32_t Channel)
   {
     return -1;
   }
-		
+  
 		HAL_ADC_Start(hadc);
 		
 		do{

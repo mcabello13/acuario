@@ -19,9 +19,7 @@ char rxBuffer[50] = {0};
 char cadenaDatosWeb[50] = {0};
 char cadena = {0};
 int p = 0;
-extern bool limpiezaActiva;
 extern bool alimentacion;
-extern bool bomba;
 char* numero;
 float datosLuzWeb = 0;
 float datospHWeb = 0;
@@ -97,11 +95,11 @@ void receiveResponse(UART_HandleTypeDef *huart)
 {	  	
 		HAL_UART_Receive(huart, &rx, 1, 500);		
 	
-		if(rx == 'A')
+		if(rx == 'B')
 		{
 			p = 0;
 			
-			for(p=0; p<50; p++)
+			for(p=0; p<35; p++)
 			{			
 				HAL_UART_Receive(huart, &rx, 1, 500);			
 				
@@ -142,35 +140,16 @@ void Thread_slave (void *argument)
 { 	
 	while(1)
 	{
-		if(limpiezaActiva == 1 || alimentacion == 1 || bomba == 1)
+		if(alimentacion == 1)
 		{
-			if(limpiezaActiva == 1)
-			{
-				identificador = 'L';
-				send(&huart3, &identificador);				
-			}
-			else if(alimentacion == 1)
-			{
-				identificador = 'C';
-				send(&huart3, &identificador);
-			}
-			else if(bomba == 1)
-			{
-				identificador = 'B';
-				send(&huart3, &identificador);
-			}
-			limpiezaActiva = 0;			
-			identificador = 0;			
-			osDelay(100);
-		}
-		else if(limpiezaActiva == 0 && alimentacion == 0 && bomba == 0)
-		{
-			identificador = 'O';
-			send(&huart3, &identificador);	
-			receiveResponse(&huart3);
+			identificador = 'C';
+			send(&huart3, &identificador);
 		}
 		else
 		{
+			identificador = 'O';
+			alimentacion = 0;			
+			send(&huart3, &identificador);	
 			receiveResponse(&huart3);
 		}
 	}

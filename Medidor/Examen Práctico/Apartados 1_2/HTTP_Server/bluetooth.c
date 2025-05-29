@@ -10,6 +10,7 @@
 //Hilos:
 osThreadId_t tid_ThreadMaster;
 osThreadId_t tid_ThreadSlave; 
+extern osThreadId_t TID_luz;
 void Thread_master (void /**argument*/);  
 void Thread_slave (void *argument);  
   
@@ -27,8 +28,6 @@ extern float temperatura;
 extern float consumoTension;
 extern float consumoCorriente;
 extern bool alimentacion;
-extern bool limpiezaActiva;
-extern bool bomba;
 TIM_HandleTypeDef TimHandle;
 osTimerId_t tim_id_s;
 static uint32_t exec;  
@@ -73,39 +72,18 @@ void send(UART_HandleTypeDef *huart, char *cmd)
 
 //Función para recibir comandos por parte del esclavo desde el master:
 void receiveResponse(UART_HandleTypeDef *huart) 
-{	  	
-		HAL_UART_Receive(huart, &rx, 1, 100);		
-	
-		if(rx == 'C')
-		{
-			alimentacion = 1;
-			rx = 0;
-		}
-		else if(rx == 'L')
-		{			
-			limpiezaActiva = 1;
-			
-			Init_Timer();
-			osTimerStart(tim_id_s, 6000);	
-			
-			rx = 0;
-		}
-		else if(rx == 'B')
-		{
-			bomba = 1;
-		}
-		else if(rx == 'O')
-		{
-			alimentacion = 0;
-			limpiezaActiva = 0;
-			bomba = 0;
-		}
-		else
-		{
-			alimentacion = 0;
-			limpiezaActiva = 0;
-			bomba = 0;
-		}
+{	
+	HAL_UART_Receive(huart, &rx, 1, 100);		
+
+	if(rx == 'C')
+	{
+		alimentacion = 1;
+		rx = 0;
+	}
+	else if(rx == 'O')
+	{
+		alimentacion = 0;			
+	}
 }
 
 //Hilo que gestiona los envios del Maestro Bluetooth:
@@ -113,12 +91,12 @@ void Thread_master (void)
 { 
 	if(rx != 0)
 	{
-		sprintf(txBuffer, "A%.2fW%.2fW%.2fW%.2fW%.2fW%.2f\n", datosSensorLuz, phAgua, temperatura, datosSensorTurbidez, consumoTension, consumoCorriente);
+		sprintf(txBuffer, "B%.2fW%.2fW%.2fW%.2fW%.2fW%.2f\n", datosSensorLuz, phAgua, temperatura, datosSensorTurbidez, consumoTension, consumoCorriente);
 		
-		for(int i=0; i<50; i++)
+		for(int i=0; i<35; i++)
 		{
 			send(&huart3, &txBuffer[i]);   
-			osDelay(500);
+			osDelay(250);
 		}
 	}
 }
@@ -138,9 +116,9 @@ int Init_Thread_slave (void)
 
 //Hilo que gestiona la recepción de datos por parte del Maestro Bluetooth:
 void Thread_slave (void *argument) 
-{ 	
+{ 		
 	while(1)
-	{
+	{		
 		receiveResponse(&huart3);
 		Thread_master();
 	}
@@ -175,7 +153,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM6)
 	{
-
+		HAL_ResumeTick(); //Se levanta el sistema.
+		osThreadResume(TID_luz);
 	}
 }
 
@@ -190,27 +169,21 @@ void SleepMode(void)
 	
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET); //LED Rojo ON.
 	
-	TIM6_delay(5000); //Timer para simular el retardo de la Limpieza del Acuario.
+	TIM6_delay(10000); //Timer para Bajo Consumo con Modo Sleep.
 	
   HAL_SuspendTick(); //...y una vez configurado, se suspende el reloj del sistema.
   HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
+	//osDelay (10000);
+	//HAL_ResumeTick(); //Se levanta el sistema.
 	
-	HAL_ResumeTick(); //Se levanta el sistema.
-	
-	receiveResponse(&huart3);
-	Thread_master();
+	//Init_Thread_slave();
 }
 
 //Timer "One Shot" para el entrar en Modo Bajo Consumo:
 //---------------------------------------------------------------------------------------
 static void Timer_Callback (void const *arg) 
 {
-
-	if(limpiezaActiva == 1)
-	{
-		SleepMode();
-		limpiezaActiva = 0;
-	}
+	SleepMode();
 }
 
 int Init_Timer (void) 
