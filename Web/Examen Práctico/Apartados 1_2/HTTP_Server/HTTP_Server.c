@@ -145,8 +145,9 @@ __NO_RETURN void app_main (void *arg)
 	
 	Init_Thread_sntp();	
 	//init_Digital_PIN_Out();
-	Init_Thread_slave();
-	
+	//Init_Thread_slave();
+	Init_ThreadCMSIS();
+  
   TID_Led     = osThreadNew (BlinkLed, NULL, NULL);
 	
   osThreadExit();

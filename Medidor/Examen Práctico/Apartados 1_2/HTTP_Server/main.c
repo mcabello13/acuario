@@ -144,6 +144,7 @@ int main(void)
 	Init_Thread_pH();
   Init_Thread_temp ();
 	initUart();
+  Init_ThreadCMSIS();
 	Init_Thread_slave();
 	
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);

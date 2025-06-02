@@ -1,6 +1,8 @@
 #include "cmsis_os2.h" // CMSIS RTOS
 #include "temperatura.h"
 
+extern float voltageConsumo;
+
 /* Funciones para configruar el ADC */
 
 /**
@@ -65,26 +67,27 @@ float ADC_getVoltage_consumo(ADC_HandleTypeDef *hadc, uint32_t Channel)
 		HAL_StatusTypeDef status;
 
 		uint32_t raw = 0;
-		float voltage = 0;
-		 /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
-  */
-  sConfig.Channel = Channel;
-  sConfig.Rank = 1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
-  if (HAL_ADC_ConfigChannel(hadc, &sConfig) != HAL_OK)
-  {
-    return -1;
-  }
+		//float voltage = 0;
 		
-		HAL_ADC_Start(hadc);
+		/* Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.*/
+		sConfig.Channel = Channel;
+		sConfig.Rank = 1;
+		sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+		if (HAL_ADC_ConfigChannel(hadc, &sConfig) != HAL_OK)
+		{
+			return -1;
+		}
+			
+			HAL_ADC_Start(hadc);
+			
+			do (
+				status = HAL_ADC_PollForConversion(hadc, 0)); //This funtions uses the HAL_GetTick(), then it only can be executed wehn the OS is running
 		
-		do{
-			status = HAL_ADC_PollForConversion(hadc, 0); //This funtions uses the HAL_GetTick(), then it only can be executed wehn the OS is running
-	  }while(status != HAL_OK);
-		
-		raw = HAL_ADC_GetValue(hadc);
-		
-		voltage = raw*VREF/RESOLUTION_12B; 
-		
-		return voltage;
+			while(status != HAL_OK);
+			
+			raw = HAL_ADC_GetValue(hadc);
+			
+			voltageConsumo = raw*VREF/RESOLUTION_12B; 
+			
+			return voltageConsumo;
 }

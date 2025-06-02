@@ -29,9 +29,7 @@
 
 extern bool LEDrun;
 extern char lcd_text[2][20+1];
-extern bool limpiezaActiva;
-bool alimentacion = 0;
-extern bool bomba;              
+int alimentacion = 0;              
 
 // Local variables.
 static uint8_t P2;
@@ -148,17 +146,6 @@ void netCGI_ProcessData (uint8_t code, const char *data, uint32_t len) {
       else if (strcmp (var, "led2=on") == 0) { //SE HAN ELIMINADO LOS LED RESTANTES PORQUE SOLO TENEMOS 3.
         P2 |= 0x04;				
       }
-			else if (strcmp (var, "activarLimpieza=on") == 0) //--------------__MODO LIMPIEZA__--------------
-			{
-				if(limpiezaActiva == 0)
-				{
-					limpiezaActiva = 1;						
-				}
-				else
-				{
-					limpiezaActiva = 0;
-				}        
-      }
 			else if(strcmp (var, "activarAlimentacion=on") == 0) //--------------__MODO ALIMENTACIÓN__--------------
 	    {
 				if(alimentacion == 0)
@@ -168,17 +155,6 @@ void netCGI_ProcessData (uint8_t code, const char *data, uint32_t len) {
 				else
 				{
 					alimentacion = 0;
-				} 						
-			}
-			else if(strcmp (var, "activarBomba=on") == 0) //--------------__BOMBA DE AGUA__--------------
-	    {
-				if(bomba == 0)
-				{
-					bomba = 1;									
-				}
-				else
-				{
-					bomba = 0;
 				} 						
 			}
       else if (strcmp (var, "ctrl=Browser") == 0) {

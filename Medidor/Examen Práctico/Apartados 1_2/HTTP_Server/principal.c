@@ -40,11 +40,11 @@ float value = 0;
 float datosSensorLuz = 0;
 float datosSensorTurbidez = 0;
 float temperatura = 0; 
+float voltajeSal = 0;
 float consumoTension = 0;
 float consumoCorriente = 0;
+float voltageConsumo = 0;
 bool alimentacion = 0;
-bool bomba = 1;
-bool limpiezaActiva = 0;
 
 
 //Funciones:
@@ -64,6 +64,8 @@ void Thread_Bomba(void);
 void Thread_master(void *argument);
 void Thread_consumo (void *argument); 
 void creacion_hilos(void);
+int Init_Timer (void);
+void SleepMode(void);
 
 
 /********************************************************************
@@ -166,8 +168,18 @@ void Thread_turbidez (void *argument)
 void Thread_luz (void *argument) 
 { 		
 	while(1)
-	{	
-		datosSensorLuz = realizarMedida();
+	{			
+		/*if(datosSensorLuz < 10)
+		{
+			TID_luz = osThreadNew(Thread_luz, NULL, NULL);
+			osThreadSuspend(TID_luz);
+			datosSensorLuz = 50;
+			//SleepMode();
+		}*/
+		//else
+		//{
+			datosSensorLuz = realizarMedida();
+		//}
 	}
 }
 
@@ -232,11 +244,15 @@ void Thread_temp (void *argument)
   ADC_HandleTypeDef adchandle; 
 	ADC1_pins_F429ZI_config_temperatura();
 	ADC_Init_Single_Conversion(&adchandle , ADC3);
-	
-	temperatura = 0; 
 
-  while (1) {
-		temperatura = ADC_getVoltage(&adchandle, 9);
+  while (1) 
+  {
+		/* Ecuación que relaciona el voltaje con temperatura */
+		/*	        y = -4,5603x2 - 15,504x + 52,6					 */
+		
+		voltajeSal = ADC_getVoltage(&adchandle, 9); // Revisar PIN en el proyecto final
+		temperatura = (-4.5603*voltajeSal*voltajeSal)+(-15.504*voltajeSal)+52.6;
+		
 		osDelay(700); 
   }
 }
@@ -245,12 +261,14 @@ void Thread_temp (void *argument)
 void Thread_consumo (void *argument) 
 {
 	
-  ADC_HandleTypeDef adchandle; 
-	ADC1_pins_F429ZI_config_consumo();
-	ADC_Init_Single_Conversion_consumo(&adchandle , ADC3);
+  ADC_HandleTypeDef adchandle2; 
+	//ADC1_pins_F429ZI_config_consumo();
+	//ADC_Init_Single_Conversion_consumo(&adchandle2 , ADC3);
 	
-  while (1) {
-		consumoTension = ADC_getVoltage_consumo(&adchandle, 15);
+  while (1) 
+  { 
+    voltageConsumo = ADC_getVoltage_consumo(&adchandle2, 15);
+		consumoTension = ADC_getVoltage_consumo(&adchandle2, 15);
 		consumoCorriente = consumoTension / 0.321; //Para obtener la corriente se divide entre "Rshunt" utilizada.
 		osDelay(500); 
   }

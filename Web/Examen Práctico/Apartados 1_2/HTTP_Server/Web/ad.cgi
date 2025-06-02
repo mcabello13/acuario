@@ -33,16 +33,21 @@ t document.getElementById("ad_volts").value = (voltsVal.toFixed(3) + ' V');
 t    const alertBox = document.getElementById("alertBox");
 t    const alertVolts = document.getElementById("alertVolts");
 t
-t    if (voltsVal > 0) {
+t    if (voltsVal < 1.5) {
 t        alertVolts.textContent = voltsVal.toFixed(3);
 t        alertBox.style.display = "block";
 t
 t    	setTimeout(() => {
 t        	alertBox.style.display = "none";
-t    	}, 3000);
+t    	}, 5000);
 t    } else {
 t        alertBox.style.display = "none";
 t    }
+t }
+t function alimentar() {
+t    setTimeout(() => {
+t        document.forms["ad"].submit();
+t    }, 800);
 t }
 t function periodicUpdateAd() {
 t if(document.getElementById("adChkBox").checked == true) {
@@ -74,9 +79,8 @@ t <td height=50><table bgcolor="#FFFFFF" border="2" cellpadding="0" cellspacing=
 c g 3 <td><table id="ad_table" style="width: %d%%" border="0" cellpadding="0" cellspacing="0">
 t <tr><td bgcolor="#FF0000">&nbsp;</td></tr></table></td></tr></table></td></tr>
 # Here begin the 'checkbox' definitions
-c b 8 <td><input type=checkbox name=activarLimpieza OnClick="submit();"> Limpiar</td></tr>
-c b 9 <td><input type=checkbox name=activarAlimentacion OnClick="submit();"> Alimentacion</td></tr>
-c b 10 <td><input type=checkbox name=activarBomba OnClick="submit();"> Activar Bomba de Agua</td></tr>
+c b 9 <td><input type=checkbox name=activarAlimentacion id="activarAlimentacion" 
+t onchange="alimentar();"> Alimentacion</td></tr>
 t </font></table>
 t <p align=center>
 t <input type=button value="Refresh" onclick="updateMultiple(formUpdate,plotADGraph)">
@@ -85,9 +89,8 @@ t <div class="info-box">
 t  <p><strong>ATENCION</strong><br>
 t    En la barra deslizante puede observarse el nivel de turbidez del agua del acuario. 
 t    Si el nivel alcanzado es demasiado alto, 
-t    se recomienda activar el modo limpieza pulsando en el checkbox "Limpiar".<br><br>
+t    se activara el modo limpieza automatico con el encendido de un segundo ventilador de refuerzo.
 t    Si desea alimentar a los peces, pulse el checkbox "Alimentacion" para abrir la trampilla.<br><br>
-t    Si desea activar la Bomba de Agua, pulse el checkbox "Activar Bomba de Agua".
 t  </p>
 t </div></form>
 t <div id="alertBox" style="display: none;" class="custom-alert">
