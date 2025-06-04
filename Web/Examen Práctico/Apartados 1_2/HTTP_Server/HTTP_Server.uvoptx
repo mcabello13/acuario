@@ -203,52 +203,42 @@
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>p,0x0A</ItemText>
+          <ItemText>identificador,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>identificador,0x0A</ItemText>
+          <ItemText>datosLuzWeb,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>datosLuzWeb,0x0A</ItemText>
+          <ItemText>datospHWeb,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>datospHWeb,0x0A</ItemText>
+          <ItemText>datosTurbidezWeb,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
           <WinNumber>1</WinNumber>
-          <ItemText>datosTurbidezWeb,0x0A</ItemText>
+          <ItemText>numero,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>numero,0x0A</ItemText>
+          <ItemText>cadenaDatosWeb,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>15</count>
           <WinNumber>1</WinNumber>
-          <ItemText>cadenaDatosWeb,0x0A</ItemText>
+          <ItemText>datosConsumoCorrienteWeb</ItemText>
         </Ww>
         <Ww>
           <count>16</count>
           <WinNumber>1</WinNumber>
-          <ItemText>cmd,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>17</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>buffer,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>18</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>p,0x0A</ItemText>
+          <ItemText>datosConsumoTensionWeb</ItemText>
         </Ww>
       </WatchWindow1>
       <ScvdPack>
@@ -888,7 +878,7 @@
 
   <Group>
     <GroupName>::Network</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>

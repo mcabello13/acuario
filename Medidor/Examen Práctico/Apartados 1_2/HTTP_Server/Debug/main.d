@@ -51,3 +51,4 @@
 .\debug\main.o: temperatura.h
 .\debug\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\debug\main.o: alimentacion.h
+.\debug\main.o: consumo.h

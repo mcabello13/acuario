@@ -8,6 +8,7 @@
 #include "ph.h"
 
 //Hilos:
+extern osThreadId_t TID_luz;
 osThreadId_t tid_ThreadMaster;
 osThreadId_t tid_ThreadSlave; 
 void Thread_slave (void *argument);  
@@ -16,6 +17,11 @@ void Thread_slave (void *argument);
 extern ARM_DRIVER_USART Driver_USART3; //Driver UART.
 static ARM_DRIVER_USART * USARTtres = &Driver_USART3;
 
+TIM_HandleTypeDef TimHandle;
+osTimerId_t tim_id_s;
+static uint32_t exec; 
+GPIO_InitTypeDef GPIO_InitStruct;
+
 char rx = 2;
 extern float datosSensorTurbidez;
 extern float datosSensorLuz;
@@ -23,7 +29,7 @@ extern float temperatura;
 extern float consumoTension;
 extern float consumoCorriente;
 extern bool alimentacion;
-char txBuffer[50] = {0};
+char txBuffer[35] = {0};
 //char buffer[70];
 osThreadId_t tid_Thread; 
 void Thread (void const *argument);
@@ -85,14 +91,15 @@ void Thread (void const *argument)
 {
   while (1) 
 	{				
-    sprintf(txBuffer, "B%.2fW%.2fW%.2fW%.2fW%.2fW%.2f\n", datosSensorLuz, phAgua, temperatura, datosSensorTurbidez, consumoTension, consumoCorriente);
+    int len = sprintf(txBuffer, "B%.2fW%.2fW%.2fW%.2fW%.2fW%.2fA", datosSensorLuz, phAgua, temperatura, datosSensorTurbidez, consumoTension, consumoCorriente);
 		
-    for(int i=0; i<32; i++)
+    for(int i=0; i<len; i++)
     {
       USARTtres->Send(&txBuffer[i],1);
       osThreadFlagsWait(0x02, NULL, osWaitForever); //Se recibira la señal del callback y el hilo despertara de nuevo.
-			osDelay(200);
+			//osDelay(200);
     }
+    osDelay(1000);
   }
 }
 
@@ -133,6 +140,76 @@ void Thread_slave (void *argument)
 	}
 }
 
+void TIM6_delay(uint16_t ms)
+{		
+	__HAL_RCC_TIM6_CLK_ENABLE();
+
+	TimHandle.Instance = TIM6;
+	TimHandle.Init.Prescaler = (SystemCoreClock / 1000) - 1; // 1ms por cuenta
+	TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+	TimHandle.Init.Period = ms - 1; // 5000 ms
+	TimHandle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+	HAL_TIM_Base_Init(&TimHandle);
+	HAL_TIM_Base_Start_IT(&TimHandle); // Habilita interrupción
+
+	HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
+}
+
+// Manejador de interrupción TIM6:
+void TIM6_DAC_IRQHandler(void)
+{
+    HAL_TIM_IRQHandler(&TimHandle);
+}
+
+// Callback de HAL que se llama cuando termina la cuenta del timer:
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM6)
+	{
+		HAL_ResumeTick(); //Se levanta el sistema.
+		osThreadResume(TID_luz);
+	}
+}
+
+//Funcion para el Modo Sleep:
+void SleepMode(void)
+{
+	__HAL_RCC_GPIOC_CLK_ENABLE(); //Se configura el Pulsador Azul...
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET); //LED Rojo ON.
+	
+	TIM6_delay(10000); //Timer para Bajo Consumo con Modo Sleep.
+	
+  HAL_SuspendTick(); //...y una vez configurado, se suspende el reloj del sistema.
+  HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
+	//osDelay (10000);
+	//HAL_ResumeTick(); //Se levanta el sistema.
+	
+	//Init_Thread_slave();
+}
+
+//Timer "One Shot" para el entrar en Modo Bajo Consumo:
+//---------------------------------------------------------------------------------------
+static void Timer_Callback (void const *arg) 
+{
+	SleepMode();
+}
+
+int Init_Timer (void) 
+{
+  // Create one-shoot timer
+  exec = 1U;
+  tim_id_s = osTimerNew((osTimerFunc_t)&Timer_Callback, osTimerPeriodic, &exec, NULL);
+  return NULL;
+}
+//---------------------------------------------------------------------------------------
 
 
 

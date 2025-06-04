@@ -23,10 +23,10 @@ t <script language=JavaScript type="text/javascript" src="xml_http.js"></script>
 t <script language=JavaScript type="text/javascript">
 # Define URL and refresh timeout
 t var formUpdate = new periodicObj("consumo.cgx", 500);
-t function plotLuz() {
+t function plotTension() {
 t  tensionVal = document.getElementById("tension");
 t }
-t function plotPh() {
+t function plotCorriente() {
 t  corrienteVal = document.getElementById("corriente").value;
 t }
 t function plotTimeUTC() {

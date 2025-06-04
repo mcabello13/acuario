@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Debug\HTTP_Server.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Debug\HTTP_Server.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jun 02 18:53:45 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Jun 04 18:45:19 2025
 <BR><P>
 <H3>Maximum Stack Usage =        320 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -853,14 +853,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread
 </UL>
 
-<P><STRONG><a name="[167]"></a>Thread</STRONG> (Thumb, 142 bytes, Stack size 0 bytes, bluetooth.o(.text))
+<P><STRONG><a name="[167]"></a>Thread</STRONG> (Thumb, 140 bytes, Stack size 0 bytes, bluetooth.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = Thread &rArr; enviarDatosWeb &rArr; atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real
 </UL>
 <BR>[Calls]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 <LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadFlagsWait
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enviarDatosWeb
-<LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bluetooth.o(.text)
 </UL>
@@ -898,8 +897,7 @@ Global Symbols
 <LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsIrqMasked
 <LI><a href="#[171]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IsException
 </UL>
-<BR>[Called By]<UL><LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread
-<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Callback
+<BR>[Called By]<UL><LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Callback
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_getTime_Date
 <LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RTC_Alarm_IRQHandler
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_time

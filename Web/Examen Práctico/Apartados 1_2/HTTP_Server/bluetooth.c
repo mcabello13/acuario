@@ -110,25 +110,23 @@ void Thread (void const *argument)
 			p = 0;
 			memset(rxBuffer, 0, sizeof(rxBuffer));
 
-			for(p = 0; p < 32; p++) 
-			{
-				USARTtres->Receive(&rx, 1); 		
-				osThreadFlagsWait(0x01, NULL, osWaitForever);
-								
-				if(rx != '\n') 
-				{
-					rxBuffer[p] = rx;			
-				} 
-				else
-				{
-					//rxBuffer[p] = '\0'; //Se finaliza la cadena antes de copiarla para enviarla a la web.
-					strcpy(cadenaDatosWeb, rxBuffer);
-					enviarDatosWeb(cadenaDatosWeb);
-					osDelay(100);
-					break;
-				}				
-				osDelay(200);
-			}
+      while (p < sizeof(rxBuffer) - 1)
+      {
+        USARTtres->Receive(&rx, 1);
+        osThreadFlagsWait(0x01, NULL, osWaitForever);
+
+        if (rx == 'A') 
+        {
+            rxBuffer[p] = '\0'; 
+            strcpy(cadenaDatosWeb, rxBuffer);
+            enviarDatosWeb(cadenaDatosWeb);
+            break;
+        }
+        else
+        {
+            rxBuffer[p++] = rx;
+        }
+      }
 		}
   }
 }

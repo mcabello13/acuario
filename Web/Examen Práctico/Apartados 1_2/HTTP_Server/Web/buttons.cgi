@@ -49,7 +49,7 @@ t updateMultiple(formUpdate);
 t timeutcVal=document.getElementById("timeutc").value;
 t }
 t updateMultiple(formUpdate);
-t var id = setInterval('periodicUpdate();',2000);
+t var id = setInterval('periodicUpdate();',1500);
 t      // load current chart package
 t      google.charts.load('current', {
 t        packages: ['corechart', 'line'],

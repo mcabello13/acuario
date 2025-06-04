@@ -200,11 +200,6 @@
           <WinNumber>1</WinNumber>
           <ItemText>consumoCorriente</ItemText>
         </Ww>
-        <Ww>
-          <count>9</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>voltageConsumo</ItemText>
-        </Ww>
       </WatchWindow1>
       <ScvdPack>
         <Filename>C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>

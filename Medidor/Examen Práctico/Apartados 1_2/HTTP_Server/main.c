@@ -46,6 +46,7 @@
 #include "ph.h"
 #include "temperatura.h"
 #include "alimentacion.h"
+#include "consumo.h"
 
 //Funciones:
 void Init_Thread_luz(void);
@@ -136,8 +137,10 @@ int main(void)
 	initI2C();
   MX_I2C2_Init();
 	ADC1_pins_F429ZI_config();
+	//ADC1_pins_F429ZI_config_consumo();
 	Init_Thread_luz();
 	Init_Thread_turbidez();
+	Init_Thread_consumo(); 
 	Configurar_pin_bomba();
 	Init_Thread_Bomba();
 	Init_Thread_alim_pez();
