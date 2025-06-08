@@ -1,7 +1,6 @@
 #include "cmsis_os2.h"    
 #include "Thread.h"                  
 #include "main.h"
-#include "rtc.h"
 #include <stdio.h>
 #include "luz.h"
 

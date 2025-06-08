@@ -45,6 +45,5 @@
 .\debug\luz.o: C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h
 .\debug\luz.o: C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h
 .\debug\luz.o: C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_usart.h
-.\debug\luz.o: rtc.h
 .\debug\luz.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\debug\luz.o: luz.h

@@ -399,13 +399,7 @@ uint32_t netCGI_Script (const char *env, char *buf, uint32_t buflen, uint32_t *p
 		case 'n':
 			
 			switch (env[2])
-			{				
-				case '1':
-					
-					len = sprintf(buf, &env[4], datosConsumoTensionWeb);
-																									
-					break;
-				
+			{								
 				case '2':
 					
 					len = sprintf(buf, &env[4], datosConsumoCorrienteWeb);

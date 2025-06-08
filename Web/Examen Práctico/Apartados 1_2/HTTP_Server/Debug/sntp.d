@@ -5,7 +5,6 @@
 .\debug\sntp.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\debug\sntp.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\debug\sntp.o: .\RTE\_Debug\RTE_Components.h
-.\debug\sntp.o: lcd.h
 .\debug\sntp.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
 .\debug\sntp.o: rtc.h
 .\debug\sntp.o: C:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h

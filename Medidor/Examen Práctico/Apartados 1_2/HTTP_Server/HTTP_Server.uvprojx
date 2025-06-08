@@ -399,11 +399,6 @@
               <FilePath>.\leds.c</FilePath>
             </File>
             <File>
-              <FileName>Arial12x12.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Arial12x12.h</FilePath>
-            </File>
-            <File>
               <FileName>Thread.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Thread.h</FilePath>

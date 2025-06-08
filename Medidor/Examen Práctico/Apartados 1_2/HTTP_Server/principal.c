@@ -38,7 +38,7 @@ char lcd_text[2][20+1];
 ADC_HandleTypeDef adchandle; 
 ADC_HandleTypeDef adchandle2;
 float value = 0;
-float datosSensorLuz = 0;
+float datosSensorLuz = 1;
 float datosSensorTurbidez = 0;
 float temperatura = 0; 
 float voltajeSal = 0;
@@ -65,7 +65,7 @@ void Thread_Bomba(void);
 void Thread_master(void *argument);
 void Thread_consumo (void *argument); 
 void creacion_hilos(void);
-int Init_Timer (void);
+//int Init_Timer (void);
 void SleepMode(void);
 
 
@@ -158,17 +158,17 @@ void Thread_luz (void *argument)
 { 		
 	while(1)
 	{			
-		/*if(datosSensorLuz < 10)
+		if(datosSensorLuz <= 0.2)
 		{
+			//datosSensorLuz = 0;
 			TID_luz = osThreadNew(Thread_luz, NULL, NULL);
 			osThreadSuspend(TID_luz);
-			datosSensorLuz = 50;
 			SleepMode();
 		}
 		else
-    {*/
+    {
 			datosSensorLuz = realizarMedida();
-		//}
+		}
 	}
 }
 
@@ -259,20 +259,7 @@ void Thread_turbidez (void *argument)
 
 //Hilo que gestiona la lectura del consumo:
 void Thread_consumo (void *argument) 
-{
-//	
-//  ADC_HandleTypeDef adchandle2; 
-//	//ADC1_pins_F429ZI_config_consumo();
-//	//ADC_Init_Single_Conversion_consumo(&adchandle2 , ADC3);
-//	
-//  while (1) 
-//  { 
-//    voltageConsumo = ADC_getVoltage_consumo(&adchandle2, 15);
-//		consumoTension = ADC_getVoltage_consumo(&adchandle2, 15);
-//		consumoCorriente = consumoTension / 0.321; //Para obtener la corriente se divide entre "Rshunt" utilizada.
-//		osDelay(500); 
-//  }
-  
+{  
   while(1)
   {
   		ADC_StartConversion_stm_consumo(&adchandle2, ADC1); 

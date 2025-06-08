@@ -42,7 +42,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_it.h"
-#include "rtc.h"
 
 #ifdef _RTE_
 #include "RTE_Components.h"             /* Component selection */
@@ -198,12 +197,12 @@ void SysTick_Handler(void)
 //Funcion de rutina de atencion a la interrupcion del Pulsador Azul:
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {	
-	HAL_ResumeTick(); //Despertamos al reloj del sistema para que salga del Modo Sleep cada vez que se pulse.
+	//HAL_ResumeTick(); //Despertamos al reloj del sistema para que salga del Modo Sleep cada vez que se pulse.
 }
 
 void EXTI15_10_IRQHandler(void)
 {
-	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+	//HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
 }
 
 /**

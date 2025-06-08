@@ -42,7 +42,6 @@
 .\debug\http_server.o: C:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Network\Include\rl_net_ds.h
 .\debug\http_server.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\debug\http_server.o: leds.h
-.\debug\http_server.o: adc.h
 .\debug\http_server.o: rtc.h
 .\debug\http_server.o: Thread.h
 .\debug\http_server.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_I2C.h
@@ -51,5 +50,3 @@
 .\debug\http_server.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
 .\debug\http_server.o: bluetooth.h
 .\debug\http_server.o: C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\Driver\Include\Driver_USART.h
-.\debug\http_server.o: alimentacion.h
-.\debug\http_server.o: bomba.h

@@ -24,7 +24,14 @@ t <script language=JavaScript type="text/javascript">
 # Define URL and refresh timeout
 t var formUpdate = new periodicObj("buttons.cgx", 500);
 t function plotLuz() {
-t  luzVal = document.getElementById("luz");
+t   const alertBox = document.getElementById("alertBox");
+t   luzVal = document.getElementById("luz");
+t   
+t   if (document.getElementById("luzVal").value <= 1.5) {
+t     alertBox.style.display = "block";
+t   } else {
+t     alertBox.style.display = "none";
+t   }
 t }
 t function plotPh() {
 t  phVal = document.getElementById("ph").value;
@@ -242,6 +249,10 @@ t <td><input type="int" readonly
 c m	5 size="10" id="dateutc" value="%d" ></td>
 t  </tr>
 t </table>
+t <div id="alertBox" style="display: none;" class="custom-alert">
+t  <strong>Atencion</strong> , se ha entrado en Modo Bajo Consumo.<br>
+t  </span> 
+t </div>
 t </body>
 t </html>
 . End of script must be closed with period.
