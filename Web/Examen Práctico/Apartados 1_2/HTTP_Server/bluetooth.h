@@ -10,5 +10,6 @@
 void receiveResponse(UART_HandleTypeDef *huart);
 void sendATCommand(UART_HandleTypeDef *huart, char *cmd);
 int Init_Thread_slave (void);
+int Init_ThreadCMSIS (void);
 
 #endif

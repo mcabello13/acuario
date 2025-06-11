@@ -1,5 +1,4 @@
 #include "rl_net.h"                     
-#include "lcd.h"
 #include "time.h"
 #include "rtc.h"
 #include "sntp.h"

@@ -7,13 +7,11 @@
 #include "rl_net.h"                   
 #include "stm32f4xx_hal.h"              
 #include "leds.h"
-#include "adc.h"
 #include "rtc.h"
 #include "Thread.h"
 #include "sntp.h"
 #include "bluetooth.h"
-#include "alimentacion.h"
-#include "bomba.h"
+#include "memoria.h"
 
 // Main stack size must be multiple of 8 Bytes
 #define APP_MAIN_STK_SZ (1024U)
@@ -138,16 +136,15 @@ __NO_RETURN void app_main (void *arg)
 	(void)arg;
 
 	LED_Init();
-	//LED_Initialize_stm();
 	netInitialize(); 
 	c_entry();
 	initUart();
 	
 	Init_Thread_sntp();	
-	//init_Digital_PIN_Out();
-	Init_Thread_slave();
-	
-  TID_Led     = osThreadNew (BlinkLed, NULL, NULL);
+	Init_ThreadCMSIS();
+  Memoria();
+  
+  TID_Led = osThreadNew (BlinkLed, NULL, NULL);
 	
   osThreadExit();
 }

@@ -114,7 +114,7 @@ void RTC_setTime(void)
 	HAL_RTC_SetDate(&RtcHandle, &sdatestructure, RTC_FORMAT_BIN); //Tras configurar la fecha completa, hay que actualizar el RTC con "SetDate".
 	
   /*##-2- Configure the Time #################################################*/
-  stimestructure.Hours = tiempo_SNTP.tm_hour /*16*/;
+  stimestructure.Hours = tiempo_SNTP.tm_hour+1 /*16*/;
   stimestructure.Minutes = tiempo_SNTP.tm_min /*12*/;
   stimestructure.Seconds = tiempo_SNTP.tm_sec /*50*/;
   stimestructure.TimeFormat = /*RTC_HOURFORMAT12_AM*/ RTC_HOURFORMAT_24;

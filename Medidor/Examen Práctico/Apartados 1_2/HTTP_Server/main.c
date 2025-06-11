@@ -135,7 +135,7 @@ int main(void)
 	//LED_Initialize_stm();
 	initI2C();
   MX_I2C2_Init();
-	ADC1_pins_F429ZI_config();
+	//ADC1_pins_F429ZI_config();
 	Init_Thread_luz();
 	Init_Thread_turbidez();
 	Configurar_pin_bomba();

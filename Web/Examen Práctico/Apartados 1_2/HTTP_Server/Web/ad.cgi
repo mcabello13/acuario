@@ -31,6 +31,7 @@ t tableSize = (numVal*100/3);
 t document.getElementById("ad_table").style.width = (tableSize + '%');
 t document.getElementById("ad_volts").value = (voltsVal.toFixed(3) + ' V');
 t    const alertBox = document.getElementById("alertBox");
+t    const alertBox2 = document.getElementById("alertBox2");
 t    const alertVolts = document.getElementById("alertVolts");
 t
 t    if (voltsVal < 1.5) {
@@ -88,8 +89,6 @@ t Medida Periodica:<input type="checkbox" id="adChkBox" onclick="periodicUpdateA
 t <div class="info-box">
 t  <p><strong>ATENCION</strong><br>
 t    En la barra deslizante puede observarse el nivel de turbidez del agua del acuario. 
-t    Si el nivel alcanzado es demasiado alto, 
-t    se activara el modo limpieza automatico con el encendido de un segundo ventilador de refuerzo.
 t    Si desea alimentar a los peces, pulse el checkbox "Alimentacion" para abrir la trampilla.<br><br>
 t  </p>
 t </div></form>

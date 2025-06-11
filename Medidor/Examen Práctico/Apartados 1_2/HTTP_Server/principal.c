@@ -269,7 +269,8 @@ void Thread_consumo (void *argument)
   { 
     voltageConsumo = ADC_getVoltage_consumo(&adchandle2, 15);
 		consumoTension = ADC_getVoltage_consumo(&adchandle2, 15);
-		consumoCorriente = consumoTension / 0.321; //Para obtener la corriente se divide entre "Rshunt" utilizada.
+		consumoCorriente = consumoTension / 0.340; //Para obtener la corriente se divide entre "Rshunt" utilizada.
+   //se nos rompio la resistencia de 0.321 y la hemos sustituido por la 0.340
 		osDelay(500); 
   }
 }

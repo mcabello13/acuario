@@ -22,5 +22,7 @@ ad.cgx,
 ph.cgi,
 ph.cgx,
 consumo.cgi,
-consumo.cgx 
+consumo.cgx,
+historial.cgi,
+historial.cgx 
 TO Web.c RTE NOPRINT ROOT(Web)
