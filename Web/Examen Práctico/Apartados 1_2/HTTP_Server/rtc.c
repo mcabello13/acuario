@@ -64,41 +64,16 @@ void c_entry(void)
     /* Clear source Reset Flag */
    //__HAL_RCC_CLEAR_RESET_FLAGS();
   }
-
-	//Configuracion de la Alarma:
-	
-	/******************************************************************************************************************************************
-	 * EXPLICACION: se configura la alarma habilitando primeramente con NVIC, el manejador de las interrupciones.                             *
-	 * A continuacion configuramos el registro Seconds porque queremos que salte cada cinco segundos "0x05", el resto                         *
-	 * de parametros se configuran como vienen de base, pero cabe destacar la mascara, que debe estar configurada para                        *
-	 * que salten los segundos, de ahi que --> alarma.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS|RTC_ALARMMASK_MINUTES. Por    *
-	 * ultimo se configura "SetAlarm" pasando como parametro la estructura "alarma" con toda la configuracion completa.                       *
-	 ******************************************************************************************************************************************/
-	
-	/*HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
-	alarma.AlarmTime.Seconds = 0x05; // ---> Cada cinco segundos.
-	alarma.AlarmTime.TimeFormat = RTC_HOURFORMAT12_AM;
-  alarma.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-	alarma.Alarm = RTC_ALARM_A;
-  alarma.AlarmTime.StoreOperation = RTC_STOREOPERATION_SET;
-  alarma.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS|RTC_ALARMMASK_MINUTES;
-  alarma.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
-  alarma.AlarmDateWeekDay = 0x1;
-	HAL_RTC_SetAlarm_IT(&RtcHandle, &alarma, FORMAT_BIN);*/
 }
 
 //Manejador de la alarma:
 void RTC_Alarm_IRQHandler(void)
-{
-	//al = 1; //Se activa esta variable para hacer ver que la alarma ha entrado en el manejador...
-	//DE LA PRACTICA 2 ---> osThreadFlagsSet(tid_ThreadAlarma, alarmaLED); //...lanzamos la señal al hilo de la alarma que gestiona el LED verde...
-	
+{	
 	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_11,1);
 	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_12,1);		
 	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_13,0);
 
 	osDelay(3000);
-	//osThreadFlagsSet(tid_ThreadAlarma, 0x00000100);
 
   HAL_RTC_AlarmIRQHandler(&RtcHandle); //...y bajamos el flag.
 }
@@ -114,7 +89,7 @@ void RTC_setTime(void)
 	HAL_RTC_SetDate(&RtcHandle, &sdatestructure, RTC_FORMAT_BIN); //Tras configurar la fecha completa, hay que actualizar el RTC con "SetDate".
 	
   /*##-2- Configure the Time #################################################*/
-  stimestructure.Hours = tiempo_SNTP.tm_hour /*16*/;
+  stimestructure.Hours = tiempo_SNTP.tm_hour+1 /*16*/;
   stimestructure.Minutes = tiempo_SNTP.tm_min /*12*/;
   stimestructure.Seconds = tiempo_SNTP.tm_sec /*50*/;
   stimestructure.TimeFormat = /*RTC_HOURFORMAT12_AM*/ RTC_HOURFORMAT_24;

@@ -26,12 +26,18 @@ t var formUpdate = new periodicObj("buttons.cgx", 500);
 t function plotLuz() {
 t   const alertBox = document.getElementById("alertBox");
 t   luzVal = document.getElementById("luz");
+t   const alertVolts = document.getElementById("alertVolts");
 t   
-t   if (document.getElementById("luzVal").value <= 1.5) {
-t     alertBox.style.display = "block";
-t   } else {
-t     alertBox.style.display = "none";
-t   }
+t    if (luzVal < 50.0) {
+t        alertVolts.textContent = voltsVal.toFixed(3);
+t        alertBox.style.display = "block";
+t
+t    	setTimeout(() => {
+t        	alertBox.style.display = "none";
+t    	}, 5000);
+t    } else {
+t        alertBox.style.display = "none";
+t    }
 t }
 t function plotPh() {
 t  phVal = document.getElementById("ph").value;
@@ -251,7 +257,7 @@ t  </tr>
 t </table>
 t <div id="alertBox" style="display: none;" class="custom-alert">
 t  <strong>Atencion</strong> , se ha entrado en Modo Bajo Consumo.<br>
-t  </span> 
+t  Valor actual: <span id="alertVolts">0.000</span> 
 t </div>
 t </body>
 t </html>

@@ -266,11 +266,12 @@ ARM Macro Assembler    Page 5
 
 \Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\S
 TM32F4xx\Include -IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Driv
-ers\STM32F4xx_HAL_Driver\Inc --predefine="__RTX SETA 1" --predefine="__MICROLIB
- SETA 1" --predefine="__UVISION_VERSION SETA 535" --predefine="_RTE_ SETA 1" --
-predefine="STM32F429xx SETA 1" --predefine="_RTE_ SETA 1" --list=.\debug\irq_ar
-mv7m.lst C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS\RTOS2\RTX\Source\A
-RM\irq_armv7m.s
+ers\STM32F4xx_HAL_Driver\Inc -IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP
+\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy --predefine="__RTX SETA 1" --pr
+edefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 535" --predefin
+e="_RTE_ SETA 1" --predefine="STM32F429xx SETA 1" --predefine="_RTE_ SETA 1" --
+list=.\debug\irq_armv7m.lst C:\Users\Castellana\Documents\ARM\CMSIS\5.8.0\CMSIS
+\RTOS2\RTX\Source\ARM\irq_armv7m.s
 
 
 

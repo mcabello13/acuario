@@ -8,23 +8,32 @@ static volatile uint16_t AD_last;       /* Last converted value               */
 float voltage = 0;
 
 //Funcion que configura el ADC para la lectura del Sensor de Turbidez:
-void ADC1_pins_F429ZI_config()
+void ADC3_pins_F429ZI_config()
 {
-	  GPIO_InitTypeDef GPIO_InitStruct = {0};
-	__HAL_RCC_ADC1_CLK_ENABLE();
-	__HAL_RCC_GPIOC_CLK_ENABLE();
-		/*PC0     ------> ADC1_IN10
-			PC3     ------> ADC1_IN13
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_0;
-    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	
+	GPIO_InitTypeDef GPIO_InitStruct = {0};
+		
+	__HAL_RCC_ADC3_CLK_ENABLE();
+	__HAL_RCC_GPIOF_CLK_ENABLE();
 
-    GPIO_InitStruct.Pin = GPIO_PIN_3;
-    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  /* Configuración PIN ADC // El PIN del ADC va a ser el A3 == PF3 en CN9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+}
+
+void deInit_Digital_PIN_Out_turbidez(void)
+{	
+	HAL_GPIO_DeInit(GPIOF, GPIO_PIN_5);
+}
+
+void Init_Digital_PIN_Out(void)
+{	
+  GPIO_InitTypeDef GPIO_InitStruct;
+  
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 }
 
 //Funcion que arranca la conversion para el Sensor de Turbidez:
@@ -56,10 +65,9 @@ float ADC_getVoltage_stm(ADC_HandleTypeDef *hadc, uint32_t Channel)
 		ADC_ChannelConfTypeDef sConfig = {0};
 		HAL_StatusTypeDef status;
 
-		uint32_t raw = 0;
-		//float voltage = 0;
-		
-		/* Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.*/
+		uint32_t raw = 0;		
+				
+		//Configuración para el ADC seleccionado con su respectivo canal
 		sConfig.Channel = Channel;
 		sConfig.Rank = 1;
 		sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
@@ -71,7 +79,7 @@ float ADC_getVoltage_stm(ADC_HandleTypeDef *hadc, uint32_t Channel)
 			HAL_ADC_Start(hadc);
 			
 			do (
-				status = HAL_ADC_PollForConversion(hadc, 0)); //This funtions uses the HAL_GetTick(), then it only can be executed wehn the OS is running
+				status = HAL_ADC_PollForConversion(hadc, 0));
 		
 			while(status != HAL_OK);
 			

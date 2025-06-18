@@ -11,6 +11,7 @@
 #include "Thread.h"
 #include "sntp.h"
 #include "bluetooth.h"
+#include "memoria.h"
 
 // Main stack size must be multiple of 8 Bytes
 #define APP_MAIN_STK_SZ (1024U)
@@ -141,6 +142,7 @@ __NO_RETURN void app_main (void *arg)
 	
 	Init_Thread_sntp();	
 	Init_ThreadCMSIS();
+  Memoria();
   
   TID_Led = osThreadNew (BlinkLed, NULL, NULL);
 	

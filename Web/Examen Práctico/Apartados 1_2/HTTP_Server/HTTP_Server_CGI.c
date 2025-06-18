@@ -16,6 +16,7 @@
 #include "Thread.h"
 #include "main.h"
 #include "RTE_Components.h"             // Component selection
+#include "memoria.h"
 //#include "Board_LED.h"                  // ::Board Support:LED
 
 #if      defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
@@ -157,6 +158,10 @@ void netCGI_ProcessData (uint8_t code, const char *data, uint32_t len) {
 					alimentacion = 0;
 				} 						
 			}
+			else if (strcmp (var, "ctrl=borrarMemoria") == 0) //--------------__BORRADO DE LA MEMORIA__--------------
+			{
+      	borrarEEPROM();	
+      }
       else if (strcmp (var, "ctrl=Browser") == 0) {
 				LEDrun = false;				
       }
@@ -435,7 +440,48 @@ uint32_t netCGI_Script (const char *env, char *buf, uint32_t buflen, uint32_t *p
       // AD Input from 'ad.cgx'
       adv = datosTurbidezWeb;
       len = (uint32_t)sprintf (buf, &env[1], adv);
-		
+    
+      break;
+    
+  //----------Memoria-----------//
+    case 'h': 
+      
+      static uint16_t direccion_actual = 0x0000;
+      static uint32_t entrada_num = 0;
+
+      uint8_t direccion[2];
+      RegistroBinario reg;
+
+      if (direccion_actual >= NUM_REGISTROS * sizeof(RegistroBinario)) {
+        direccion_actual = 0;
+        entrada_num = 0;
+        return 0;
+      }
+
+      direccion[0] = (direccion_actual >> 8) & 0xFF;
+      direccion[1] = direccion_actual & 0xFF;
+
+      if (lecturaMemoria(direccion, (uint8_t *)&reg, sizeof(RegistroBinario)) != 0) {
+        direccion_actual = 0;
+        entrada_num = 0;
+        return 0;
+      }
+
+      // Validación rápida por si está vacío
+      if (reg.luz == 0.0f) {
+        direccion_actual += sizeof(RegistroBinario);
+        return 0;
+      }
+    len = snprintf(buf, buflen,
+        "<tr><td>%lu</td><td>%s %s</td><td>%.1f</td><td>%.2f</td><td>%.1f</td><td>%.1f</td><td>%.2f</td></tr>\n",
+        (unsigned long)entrada_num++,
+        reg.cadenaFecha, reg.cadenaReloj,
+        reg.luz, reg.ph, reg.turbidez,
+        reg.temperatura, reg.corriente);
+
+      direccion_actual += sizeof(RegistroBinario);
+      return len | (1UL << 31);  // continuar llamando
+    
       break;
 
     case 'y':

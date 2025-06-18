@@ -113,12 +113,6 @@ int main(void)
 #ifdef RTE_CMSIS_RTOS2
   /* Initialize CMSIS-RTOS2 */
   osKernelInitialize ();
-
-	//CONFIGURACION DEL PULSADOR AZUL: GPIO pin : PC13 (B1)	
-	GPIO_InitStruct.Pin = GPIO_PIN_13;
-	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-	GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 	

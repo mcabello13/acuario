@@ -5,7 +5,7 @@
 #include "stm32f4xx_hal.h"
 #include <string.h>
 #include <stdlib.h>
-
+#include "memoria.h"
 
 extern ARM_DRIVER_USART Driver_USART3; //Driver UART.
 static ARM_DRIVER_USART * USARTtres = &Driver_USART3;
@@ -151,4 +151,6 @@ void enviarDatosWeb(char cadenaDatosWeb[50])
 	
 	numero = strtok(NULL, "W");
 	datosConsumoCorrienteWeb = atof(numero);
+  
+  osEventFlagsSet(flag_guardar_memoria, FLAG_BT_DATA);
 }

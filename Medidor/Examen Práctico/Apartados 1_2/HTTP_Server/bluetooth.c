@@ -29,7 +29,6 @@ extern float consumoTension;
 extern float consumoCorriente;
 extern bool alimentacion;
 char txBuffer[35] = {0};
-//char buffer[70];
 osThreadId_t tid_Thread; 
 void Thread (void const *argument);
 
@@ -56,7 +55,6 @@ void myUSART_callback(uint32_t event)
     {
         osThreadFlagsSet(tid_Thread, 0x02); // Señal de transmisión
     }
-    //osThreadFlagsSet(tid_Thread, 0x01); //Cada vez que se complete un envio, el callback mandara esta señal al hilo donde se gestiona la UART.
   }
 }
 
@@ -76,7 +74,7 @@ void initUart(void)
   USARTtres->Control (ARM_USART_CONTROL_RX, 1);
 }
 
-//Funcion que inicializa hilos y timers:
+//Funcion que inicializa el hilo de la transmisión:
 int Init_ThreadCMSIS (void) 
 {
   tid_Thread = osThreadNew (Thread, NULL, NULL);
@@ -96,7 +94,6 @@ void Thread (void const *argument)
     {
       USARTtres->Send(&txBuffer[i],1);
       osThreadFlagsWait(0x02, NULL, osWaitForever); //Se recibira la señal del callback y el hilo despertara de nuevo.
-			//osDelay(200);
     }
     osDelay(1000);
   }
@@ -139,6 +136,7 @@ void Thread_slave (void *argument)
 	}
 }
 
+//Timer utilizado para comprobar la medida de luz para salir del Modo de Bajo Consumo:
 void TIM6_delay(uint16_t ms)
 {		
 	__HAL_RCC_TIM6_CLK_ENABLE();
@@ -166,23 +164,17 @@ void TIM6_DAC_IRQHandler(void)
 // Callback de HAL que se llama cuando termina la cuenta del timer:
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {	
-	if (htim->Instance == TIM6) //...y luego llega aquí.
+	if (htim->Instance == TIM6) //...y termina aquí.
 	{
-		HAL_ResumeTick(); //Se levanta el sistema.
-		osThreadResume(TID_luz);
-		datosSensorLuz = 0.3;
+		HAL_ResumeTick(); //Se levanta el sistema...
+		osThreadResume(TID_luz); //...y se rehabilita el hilo medidor de luz.
+		datosSensorLuz = 20;
 	}
 }
 
-//Funcion para el Modo Sleep:
+//Funcion para el Modo de Bajo Consumo Sleep:
 void SleepMode(void)
-{
-	__HAL_RCC_GPIOC_CLK_ENABLE(); //Se configura el Pulsador Azul...
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-	
+{	
 	TIM6_delay(20000); //Timer para Bajo Consumo con Modo Sleep.
 	
   __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU); //Se limpian los flag de cualquier otra interrupción.

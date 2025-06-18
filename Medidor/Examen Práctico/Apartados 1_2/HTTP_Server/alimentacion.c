@@ -40,6 +40,15 @@ void init_Digital_PIN_Out(void)
 	HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 }
 
+//Función que apaga el motor:
+void deInit_Digital_PIN_Out(void)
+{	
+	HAL_GPIO_DeInit(GPIOG, GPIO_PIN_0);
+	HAL_GPIO_DeInit(GPIOG, GPIO_PIN_1);
+	HAL_GPIO_DeInit(GPIOG, GPIO_PIN_2);
+	HAL_GPIO_DeInit(GPIOG, GPIO_PIN_3);
+}
+
 /*
 ------------------------------------------------
 SECUENCIA UTILIZADA PARA EL MOTOR DE OCHO PASOS:

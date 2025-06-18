@@ -6,6 +6,7 @@
 
 #define PH_RX_LEN 20
 
+//Variables
 I2C_HandleTypeDef hi2c2;  // Declaración externa (ya inicializado en otro archivo)
 int32_t convert_24bit_to_int32(uint8_t msb, uint8_t mid, uint8_t lsb);
 float adc_code_to_voltage(int32_t adc_code, float vref);
@@ -24,7 +25,7 @@ void MX_I2C2_Init(void)
     __HAL_RCC_I2C2_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
 
-    // Configuración de pines PB10 (SCL) y PB11 (SDA)
+    //Configuración de pines PB10 (SCL) y PB11 (SDA)
     GPIO_InitTypeDef GPIO_InitStruct = {0};
     GPIO_InitStruct.Pin = GPIO_PIN_10 | GPIO_PIN_11;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
@@ -61,7 +62,7 @@ typedef union
     uint8_t LT_BYTE[4];
 } LT_UNION_INT32_4BYTES;
 
-// Correcto armado del código ADC con desplazamiento y signo igual a Arduino
+//Correcto armado del código ADC con desplazamiento y signo.
 int32_t convert_24bit_to_int32(uint8_t lsb, uint8_t mid, uint8_t msb) {
     LT_UNION_INT32_4BYTES data;
 
@@ -76,7 +77,7 @@ int32_t convert_24bit_to_int32(uint8_t lsb, uint8_t mid, uint8_t msb) {
     return data.LT_INT32;
 }
 
-// Igual que Arduino
+//Función que devuelve el valor medido:
 float adc_code_to_voltage(int32_t adc_code, float vref) 
 {
     adc_code -= 0x20000000;  // Offset binary ? signed binary
@@ -94,9 +95,9 @@ float calcular_pH_calibrado(float voltage_mV, float offset_mV, float slope_mV_pe
 void mostrar_pH_y_voltaje(float voltage_mV) 
 {
     float ph = calcular_pH_calibrado(voltage_mV* 1000.0f, offset_mV, slope_mV_per_pH);
-    //printf("Voltaje PH: %.2f mV | pH: %.2f\n", voltage_mV * 1000.0f, ph);
 }
 
+//Función que inicializa el hilo medidor del Sensor de pH:
 int Init_Thread_pH (void) 
 {
   tid_Thread_pH = osThreadNew(Thread_pH, NULL, NULL);

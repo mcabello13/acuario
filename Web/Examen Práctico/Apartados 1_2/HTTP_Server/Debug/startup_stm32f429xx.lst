@@ -884,11 +884,12 @@ Keil\ARM_Compiler\1.6.3\Include -IC:\Users\Castellana\Documents\Keil\MDK-Middle
 ware\7.13.0\Board -IC:\Users\Castellana\Documents\Keil\MDK-Middleware\7.13.0\Ne
 twork\Include -IC:\Users\Castellana\Documents\Keil\STM32F4xx_DFP\2.15.0\Drivers
 \CMSIS\Device\ST\STM32F4xx\Include -IC:\Users\Castellana\Documents\Keil\STM32F4
-xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc --predefine="__RTX SETA 1" --pre
-define="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 535" --predefine
-="_RTE_ SETA 1" --predefine="STM32F429xx SETA 1" --predefine="_RTE_ SETA 1" --l
-ist=.\debug\startup_stm32f429xx.lst RTE\Device\STM32F429ZITx\startup_stm32f429x
-x.s
+xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc -IC:\Users\Castellana\Documents\
+Keil\STM32F4xx_DFP\2.15.0\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy --predefine="
+__RTX SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SE
+TA 535" --predefine="_RTE_ SETA 1" --predefine="STM32F429xx SETA 1" --predefine
+="_RTE_ SETA 1" --list=.\debug\startup_stm32f429xx.lst RTE\Device\STM32F429ZITx
+\startup_stm32f429xx.s
 
 
 

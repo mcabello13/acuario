@@ -31,14 +31,13 @@ osThreadId_t tid_Thread_Bomba;
 osThreadId_t th_temp_sensor; 
 osThreadId_t th_consumo; 
 
-
 //Variables:
 bool LEDrun;
 char lcd_text[2][20+1];
 ADC_HandleTypeDef adchandle; 
 ADC_HandleTypeDef adchandle2;
 float value = 0;
-float datosSensorLuz = 1;
+float datosSensorLuz = 20;
 float datosSensorTurbidez = 0;
 float temperatura = 0; 
 float voltajeSal = 0;
@@ -46,7 +45,7 @@ float consumoTension = 0;
 float consumoCorriente = 0;
 float voltageConsumo = 0;
 bool alimentacion = 0;
-
+bool alimentacionInicial = 0;
 
 //Funciones:
 __NO_RETURN void app_main (void *arg);
@@ -65,7 +64,8 @@ void Thread_Bomba(void);
 void Thread_master(void *argument);
 void Thread_consumo (void *argument); 
 void creacion_hilos(void);
-//int Init_Timer (void);
+void deInit_Digital_PIN_Out_turbidez(void);
+void Init_Digital_PIN_Out(void);
 void SleepMode(void);
 
 
@@ -73,7 +73,7 @@ void SleepMode(void);
  *               INICIALIZACION DE LOS HILOS                        *
  ********************************************************************/
 
-
+//Función de inicialización del hilo encargado de la medición de la turbidez del agua:
 int Init_Thread_turbidez (void) 
 {
   TID_turbidez = osThreadNew(Thread_turbidez, NULL, NULL);
@@ -86,6 +86,7 @@ int Init_Thread_turbidez (void)
   return(0);
 }
 
+//Función de inicialización del hilo encargado de la medición de la luz:
 int Init_Thread_luz (void) 
 {
   TID_luz = osThreadNew(Thread_luz, NULL, NULL);
@@ -98,7 +99,7 @@ int Init_Thread_luz (void)
   return(0);
 }
 
- //Función de inicialización del hilo encargado de la alimentación de los peces:
+//Función de inicialización del hilo encargado de la alimentación de los peces:
 int Init_Thread_alim_pez (void) 
 {  
 	init_Digital_PIN_Out();
@@ -158,7 +159,7 @@ void Thread_luz (void *argument)
 { 		
 	while(1)
 	{			
-		if(datosSensorLuz <= 0.2)
+		if(datosSensorLuz <= 10)
 		{
 			//datosSensorLuz = 0;
 			TID_luz = osThreadNew(Thread_luz, NULL, NULL);
@@ -183,7 +184,10 @@ void function_th_alim_pez (void *argument)
   while(1)
 	{
 		if(alimentacion == 1)
-		{				
+		{
+      init_Digital_PIN_Out();
+      alimentacionInicial = 1;
+      
 			for (int i = 0; i < 4096; i++)
 			{
 				if (alimentacion == 0)
@@ -208,11 +212,11 @@ void function_th_alim_pez (void *argument)
 			}
 			osThreadSuspend(NULL);
 		}	
-		else if(alimentacion == 0)
+		else if(alimentacion == 0 && alimentacionInicial == 1)
 		{
-			osThreadSuspend(NULL);
+      deInit_Digital_PIN_Out();
+			osThreadSuspend(NULL);      
 		}
-		
   }
 }
 
@@ -220,8 +224,7 @@ void function_th_alim_pez (void *argument)
 void Thread_Bomba(void)
 {
     while (1)
-    {
-			//printf("Bomba ON\n");
+    {			
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_SET);		
     }
 }
@@ -231,7 +234,7 @@ void Thread_temp (void *argument)
 {
 	
   ADC_HandleTypeDef adchandle; 
-	ADC1_pins_F429ZI_config_temperatura();
+	ADC1_pins_F429ZI_config_temperatura();//ADC1 canal 9
 	ADC_Init_Single_Conversion(&adchandle , ADC3);
 
   while (1) 
@@ -239,32 +242,48 @@ void Thread_temp (void *argument)
 		/* Ecuación que relaciona el voltaje con temperatura */
 		/*	        y = -4,5603x2 - 15,504x + 52,6					 */
 		
-		voltajeSal = ADC_getVoltage(&adchandle, 9); // Revisar PIN en el proyecto final
-		temperatura = (-4.5603*voltajeSal*voltajeSal)+(-15.504*voltajeSal)+52.6;
-		
-		osDelay(700); 
+		voltajeSal = ADC_getVoltage(&adchandle, ADC_CHANNEL_9); 
+		temperatura = (-4.5603*voltajeSal*voltajeSal)+(-15.504*voltajeSal)+52.6;		
+		osDelay(4000); 
   }
 }
 
 //Hilo que gestiona el Sensor de Turbidez:
 void Thread_turbidez (void *argument) 
+  
 { 		
+  ADC3_pins_F429ZI_config();//ADC3 channel 15
 	while(1)
 	{	
-		ADC_StartConversion_stm(&adchandle, ADC1); 
-		value = ADC_getVoltage_stm(&adchandle, 10);
+    Init_Digital_PIN_Out();
+		ADC_StartConversion_stm(&adchandle,ADC3); 
+		value = ADC_getVoltage_stm(&adchandle, 15);
 		datosSensorTurbidez = value;
+    
+    osDelay(4000);
+    deInit_Digital_PIN_Out_turbidez();
 	}
 }
 
 //Hilo que gestiona la lectura del consumo:
 void Thread_consumo (void *argument) 
 {  
+  ADC1_pins_F429ZI_config_consumo();
+	
   while(1)
   {
-  		ADC_StartConversion_stm_consumo(&adchandle2, ADC1); 
-      consumoTension = ADC_getVoltage_stm_consumo(&adchandle2, 13);
-      consumoCorriente = consumoTension / 0.321; //Para obtener la corriente se divide entre "Rshunt" utilizada.
+		ADC_StartConversion_stm_consumo(&adchandle2, ADC1); //ADC1 canal 13
+		consumoTension = ADC_getVoltage_stm_consumo(&adchandle2, 13);
+		
+    if(alimentacion == 1)
+		{
+			//Para obtener la corriente se divide entre la ganancia del amplificador y la "Rshunt" utilizada ---> [I = (V / G) / Rshunt]
+      consumoCorriente =(consumoTension/15.04)/0.340 ; 
+    }
+		else if (alimentacion == 0)
+		{
+      consumoCorriente =(consumoTension/12.65)/0.340 ;
+    }
       osDelay(500); 
   }
 }
